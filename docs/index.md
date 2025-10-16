@@ -16,11 +16,11 @@ Please take a look at the short video demonstrating the first version of the vis
 
 [Demo](https://cloud-pipelines.net/pipeline-studio-app)
 
-The experimental new version of the Tangle app is now available at <https://cloud-pipelines.net/pipeline-studio-app> . No registration is required to experiment with building pipelines. To install your own app instance, follow the [backend installation instructions](https://github.com/Cloud-Pipelines/backend?tab=readme-ov-file#installation).
+The experimental new version of the Tangle app is now available at <https://cloud-pipelines.net/pipeline-studio-app> . No registration is required to experiment with building pipelines. To be able to execute the pipelines, follow the [installation instructions](#installation).
 
 Please check it out and report any bugs you find using [GitHub Issues](https://github.com/Cloud-Pipelines/tangle/issues).
 
-The app is under active development, so expect some breakages as I work on the app and do not rely on the app for production.
+The app is under active development, so expect some breakages as we work on the app and do not rely on the app for production.
 
 ## Installation
 
@@ -36,8 +36,16 @@ git clone https://github.com/Cloud-Pipelines/pipeline-studio-app.git tangle/fron
 
 3. Start the app:
 
+Linux and Mac OS:
+
 ```shell
-cd tangle/backend && uv run fastapi run start_local.py
+cd tangle && backend/start_local.sh
+```
+
+Windows:
+
+```shell
+cd tangle && backend\start_local.cmd
 ```
 
 4. Once the "start_local: Starting the orchestrator" message appears in the terminal, open the [http://localhost:8000](http://localhost:8000) URL in a Web browser and start use the app.
@@ -58,10 +66,10 @@ git clone https://github.com/Cloud-Pipelines/pipeline-studio-app.git tangle/fron
 3. Start the app:
 
 ```shell
-cd tangle/backend && uv run fastapi run start_local.py
+cd tangle && backend/start_local.sh
 ```
 
-4. Once the "start_local: Starting the orchestrator" message appears in the terminal, open the  <https://shell.cloud.google.com/devshell/proxy?port=8000> URL in another browser tab.
+4. Once the "start_local: Starting the orchestrator", "View app at" messages appears in the terminal, open the <https://shell.cloud.google.com/devshell/proxy?port=8000> URL in another browser tab and start using the app.
 
 
 ### App features:
