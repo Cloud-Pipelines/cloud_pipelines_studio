@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TangleFlow - Next-Gen ML Pipeline Editor</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <style>
+        .node {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+        .node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .connector {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        #canvas {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="vanta-background" class="fixed inset-0 -z-10"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-white bg-opacity-90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <svg class="h-8 w-8 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M18 17V9" />
+                            <path d="M13 17V5" />
+                            <path d="M8 17v-3" />
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-gray-900">Tangle</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#" class="bg-indigo-100 text-indigo-700 px-3 py-2 rounded-md text-sm font-medium">Editor</a>
+                            <a href="#" class="text-gray-600 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Templates</a>
+                            <a href="#" class="text-gray-600 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Docs</a>
+                            <a href="#" class="text-gray-600 hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition">Sign In</button>
+                        <button class="ml-4 bg-white border border-indigo-600 text-indigo-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-50 transition">Sign Up</button>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-200 focus:outline-none">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative overflow-hidden">
+        <!-- Hero Section -->
+        <div class="pt-10 pb-20 px-4 sm:px-6 lg:pt-16 lg:pb-28 lg:px-8">
+            <div class="relative max-w-7xl mx-auto">
+                <div class="text-center">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                        <span class="block">Build, Run and Share</span>
+                        <span class="block text-indigo-600">ML Pipelines</span>
+                    </h1>
+                    <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                        The next generation cloud-native pipeline editor for machine learning workflows. Visualize, collaborate and deploy with ease.
+                    </p>
+                    <div class="mt-10 sm:flex sm:justify-center">
+                        <div class="rounded-md shadow">
+                            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                                Launch Editor
+                            </a>
+                        </div>
+                        <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                                Watch Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Preview -->
+        <div class="relative bg-white shadow-xl rounded-lg max-w-7xl mx-auto mt-10 overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-12 bg-gray-100 flex items-center px-4 border-b border-gray-200">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="ml-4 text-sm text-gray-600">pipeline.yaml</div>
+            </div>
+            <div id="canvas" class="h-96 mt-12 p-4 relative">
+                <!-- Sample Pipeline Nodes -->
+                <div class="node absolute top-20 left-1/4 bg-white p-3 w-48" style="transform: translateX(-50%);">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-medium text-gray-900">Data Loader</h3>
+                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Input</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">Loads data from CSV files</p>
+                    <div class="flex justify-end">
+                        <div class="connector bg-green-500"></div>
+                    </div>
+                </div>
+
+                <div class="node absolute top-20 left-2/4 bg-white p-3 w-48" style="transform: translateX(-50%);">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-medium text-gray-900">Preprocessor</h3>
+                        <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Transform</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">Cleans and normalizes data</p>
+                    <div class="flex justify-between">
+                        <div class="connector bg-red-500"></div>
+                        <div class="connector bg-green-500"></div>
+                    </div>
+                </div>
+
+                <div class="node absolute top-20 left-3/4 bg-white p-3 w-48" style="transform: translateX(-50%);">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-medium text-gray-900">Model Trainer</h3>
+                        <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Train</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3">XGBoost classifier</p>
+                    <div class="flex justify-start">
+                        <div class="connector bg-red-500"></div>
+                    </div>
+                </div>
+
+                <svg class="absolute inset-0 w-full h-full pointer-events-none">
+                    <path d="M150,80 C250,80 250,80 350,80" stroke="#4f46e5" stroke-width="2" fill="transparent" stroke-dasharray="5,5" />
+                    <path d="M350,80 C450,80 450,80 550,80" stroke="#4f46e5" stroke-width="2" fill="transparent" stroke-dasharray="5,5" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="py-12 bg-white bg-opacity-90 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        A better way to build ML pipelines
+                    </p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        Tangle provides everything you need to streamline your machine learning workflow.
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <div class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                <i data-feather="cpu"></i>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Visual Pipeline Builder</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Drag-and-drop interface to design complex ML workflows without writing boilerplate code.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                <i data-feather="share-2"></i>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Real-time Collaboration</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Work simultaneously with your team members on the same pipeline.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                <i data-feather="cloud"></i>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Cloud Native</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Deploy directly to Kubernetes, AWS, GCP or Azure with a single click.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                <i data-feather="git-branch"></i>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Version Control</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Built-in Git integration to track changes and rollback when needed.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                <i data-feather="monitor"></i>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Performance Monitoring</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Track pipeline execution metrics and performance in real-time.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                <i data-feather="box"></i>
+                            </div>
+                            <div class="ml-16">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Component Library</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Extensive library of pre-built components for common ML tasks.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 bg-opacity-90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+            <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+                <div class="space-y-8 xl:col-span-1">
+                    <div class="flex items-center">
+                        <svg class="h-8 w-8 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M18 17V9" />
+                            <path d="M13 17V5" />
+                            <path d="M8 17v-3" />
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-white">Tangle</span>
+                    </div>
+                    <p class="text-gray-300 text-base">
+                        The next generation cloud-native pipeline editor for machine learning workflows.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-feather="github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-feather="linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-feather="slack"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">
+                                Product
+                            </h3>
+                            <div class="mt-4 space-y-4">
+                                <a href="#" class="text-base text-gray-400 hover:text-white">
+                                    Features
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Pricing
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Templates
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Integrations
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-12 md:mt-0">
+                            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">
+                                Resources
+                            </h3>
+                            <div class="mt-4 space-y-4">
+                                <a href="#" class="text-base text-gray-400 hover:text-white">
+                                    Documentation
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Tutorials
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Blog
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Support
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">
+                                Company
+                            </h3>
+                            <div class="mt-4 space-y-4">
+                                <a href="#" class="text-base text-gray-400 hover:text-white">
+                                    About
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Careers
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Contact
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Press
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mt-12 md:mt-0">
+                            <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">
+                                Legal
+                            </h3>
+                            <div class="mt-4 space-y-4">
+                                <a href="#" class="text-base text-gray-400 hover:text-white">
+                                    Privacy
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Terms
+                                </a>
+                                <a href="#" class="text-base text-gray-400 hover:text-white block">
+                                    Security
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8">
+                <p class="text-base text-gray-400 text-center">
+                    &copy; 2025 TangleML. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Vanta.js background
+        VANTA.NET({
+            el: "#vanta-background",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x6366f1,
+            backgroundColor: 0xf8fafc,
+            points: 10.00,
+            maxDistance: 20.00,
+            spacing: 15.00
+        });
+
+        // Initialize feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
