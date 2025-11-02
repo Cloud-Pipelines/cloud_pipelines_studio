@@ -1,8 +1,0 @@
-[submodule "backend"]
-	path = backend
-	url = https://github.com/Cloud-Pipelines/backend
-	branch = stable
-[submodule "frontend_build"]
-	path = frontend_build
-	url = https://github.com/Cloud-Pipelines/pipeline-studio-app
-	branch = gh_pages_stable
