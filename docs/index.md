@@ -27,6 +27,16 @@ Please check it out and report any bugs you find using [GitHub Issues](https://g
 
 The app is under active development, so expect some breakages as we work on the app and do not rely on the app for production.
 
+<details markdown="1">
+  <summary>Experimental HuggingFace demo (private)</summary>
+  <iframe
+      src="https://ark-kun-tangle.hf.space/"
+      frameborder="0"
+      width="100%"
+      height="1000"
+  ></iframe>
+</details>
+
 ## Installation
 
 ### Try on local machine
@@ -38,6 +48,7 @@ The app is under active development, so expect some breakages as we work on the 
 git clone https://github.com/Cloud-Pipelines/backend.git tangle/backend --branch stable
 git clone https://github.com/Cloud-Pipelines/pipeline-studio-app.git tangle/frontend_build --branch gh_pages_stable --single-branch --depth 1
 ```
+
 3. Start the app:
 
 Linux and Mac OS:
@@ -51,6 +62,7 @@ Windows:
 ```bat
 cd tangle && backend\start_local.cmd
 ```
+
 4. Once the "start_local: Starting the orchestrator" message appears in the terminal, open the [http://localhost:8000](http://localhost:8000) URL in a Web browser and start use the app.
 Click the "New Pipeline" button at the top to start building a new pipeline.
 
@@ -76,32 +88,32 @@ cd tangle && backend/start_local.sh
 
 ## App features
 
-*   Start building pipelines right away
-    * Intuitive visual drag and drop interface
-    * No registration required to build. You own your data.
-*   Execute pipelines on your local machine or in Cloud
-    * Easily install the app on local machine or deploy to cloud
-    * Submit pipelines for execution with a single click.
-    * Easily monitor all pipeline task executions, view the artifacts, read the logs.
-*   Fast iteration
-    * Clone any pipeline run and get a new editable pipeline
-    * Create pipeline -> Submit run -> Monitor run -> Clone run -> Edit pipeline -> Submit run ...
-*   Automatic execution caching and reuse
-    * Save time and compute. Don't re-do what's done
-    * Successful and even running executions are re-used from cache
-*   Reproducibility
-    * All your runs are kept forever (on your machine) - graph, logs, metadata
-    * Re-run an old pipeline run with just two clicks (Clone pipeline, Submit run)
-    * Containers and strict component versioning ensure reproducibility
-*   Pipeline Components
-    * Time-proven `ComponentSpec`/`component.yaml` format
-    * A library of preloaded components
-    * Fast-growing public component ecosystem
-    * Add your own components (public or private)
-    * Easy to create your own components manually or using the Cloud Pipelines SDK
-    * Components can be written in [any language](https://github.com/Ark-kun/pipeline_components/tree/master/components/sample) (Python, Shell, R, Java, C#, etc).
-    * Compatible with [Google Cloud Vertex AI Pipelines](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) and [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/introduction/)
-    * Lots of pre-built components on GitHub: [Ark-kun/pipeline_components](https://github.com/Ark-kun/pipeline_components/tree/master/components).
+* Start building pipelines right away
+  * Intuitive visual drag and drop interface
+  * No registration required to build. You own your data.
+* Execute pipelines on your local machine or in Cloud
+  * Easily install the app on local machine or deploy to cloud
+  * Submit pipelines for execution with a single click.
+  * Easily monitor all pipeline task executions, view the artifacts, read the logs.
+* Fast iteration
+  * Clone any pipeline run and get a new editable pipeline
+  * Create pipeline -> Submit run -> Monitor run -> Clone run -> Edit pipeline -> Submit run ...
+* Automatic execution caching and reuse
+  * Save time and compute. Don't re-do what's done
+  * Successful and even running executions are re-used from cache
+* Reproducibility
+  * All your runs are kept forever (on your machine) - graph, logs, metadata
+  * Re-run an old pipeline run with just two clicks (Clone pipeline, Submit run)
+  * Containers and strict component versioning ensure reproducibility
+* Pipeline Components
+  * Time-proven `ComponentSpec`/`component.yaml` format
+  * A library of preloaded components
+  * Fast-growing public component ecosystem
+  * Add your own components (public or private)
+  * Easy to create your own components manually or using the Cloud Pipelines SDK
+  * Components can be written in [any language](https://github.com/Ark-kun/pipeline_components/tree/master/components/sample) (Python, Shell, R, Java, C#, etc).
+  * Compatible with [Google Cloud Vertex AI Pipelines](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) and [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/introduction/)
+  * Lots of pre-built components on GitHub: [Ark-kun/pipeline_components](https://github.com/Ark-kun/pipeline_components/tree/master/components).
 
 We have many exciting features planned, but we want to prioritize the features based on the user feedback.
 
