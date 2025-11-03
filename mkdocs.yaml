@@ -103,7 +103,9 @@ nav:
       # - First steps: getting-started/first-steps.md
       # - Features: getting-started/features.md
   - Guides:
-      - guides/index.md
+      # - guides/index.md
+      - Components:
+        - guides/components/create_component_from_python_function.md
   - Concepts:
       - concepts/index.md
   - Reference:
