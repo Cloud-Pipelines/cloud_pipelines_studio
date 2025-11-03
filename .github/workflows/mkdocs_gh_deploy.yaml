@@ -1,0 +1,28 @@
+name: mkdocs_gh_deploy 
+on:
+  push:
+    branches:
+      - master 
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+      - uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: ~/.cache 
+          restore-keys: |
+            mkdocs-material-
+      - uses: astral-sh/setup-uv@v7.1.2
+      - run: uvx --with-requirements https://raw.githubusercontent.com/astral-sh/uv/28685633c01a0e989abe997e0378e8073d1fdad1/docs/requirements.txt --python 3.11 -- mkdocs gh-deploy --force
