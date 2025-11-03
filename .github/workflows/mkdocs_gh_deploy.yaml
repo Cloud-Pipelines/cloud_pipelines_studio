@@ -32,6 +32,7 @@ jobs:
     needs: build
     permissions:
       id-token: write
+      pages: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
