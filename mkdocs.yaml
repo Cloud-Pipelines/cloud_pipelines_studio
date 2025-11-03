@@ -111,4 +111,4 @@ nav:
   - Concepts:
       - concepts/index.md
   - Reference:
-      - reference/index.md
+      - reference/component-spec.md
