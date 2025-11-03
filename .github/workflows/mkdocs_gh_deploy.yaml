@@ -30,6 +30,8 @@ jobs:
       url: ${{ steps.upload_pages_artifact.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
