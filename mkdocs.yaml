@@ -1,0 +1,110 @@
+site_name: Tangle
+repo_url: https://github.com/TangleML/tangle
+repo_name: tangle
+site_url: https://tangleml.com
+site_description: Tangle is a pipeline system that allows the users to build and run arbitrary Machine Learning pipelines using drag and drop without having to set up development environment.
+
+theme:
+  name: material
+  logo: assets/logo_white_circle_512x512.png
+  # logo: assets/logo_white_circle.svg
+  favicon: assets/logo_white_circle_48x48.png
+  features:
+    - navigation.path
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.expand
+    # - navigation.indexes  # Incompatible with toc.integrate
+    # - navigation.sections
+    - navigation.tracking
+    - navigation.tabs  # Top horizontal navigation tabs
+    - content.code.annotate
+    - toc.follow
+    - toc.integrate  # Incompatible with navigation.indexes
+    # - navigation.footer
+    - navigation.top
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#automatic-light-dark-mode
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  # custom_dir: docs/.overrides
+markdown_extensions:
+  - admonition:
+  - pymdownx.details:
+  - pymdownx.snippets:
+  - pymdownx.magiclink:
+  - attr_list:
+  - toc:
+      anchorlink: true
+      anchorlink_class: "toclink"
+  - md_in_html:
+  - pymdownx.inlinehilite:
+  - pymdownx.superfences:
+  - pymdownx.keys:
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+plugins:
+  - search
+  # - git-revision-date-localized:
+  #     timezone: UTC # It can only be in UTC unless the ISO time can include timezone.
+  - redirects:
+      # Note that redirecting an anchor, e.g., `folder/doc1/#anchor` must be done
+      # client-side (in `.js` files).
+      redirect_maps:
+        # "path/old.md": "path2/new.md"
+copyright: Copyright &copy; 2025 Tangle authors
+extra_css:
+  - extras/extra.css
+# extra_javascript:
+#   - extras/extra.js
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/TangleML/tangle
+    # - icon: fontawesome/brands/discord
+    #   link: https://discord.com/invite/tangle
+    # - icon: fontawesome/brands/python
+    #   link: https://pypi.org/tangle-server/
+    # - icon: fontawesome/brands/x-twitter
+    #   link: https://x.com/TangleML
+nav:
+  - Home: index.md
+  - Getting started:
+      - getting-started/index.md
+      # - Installation: getting-started/installation.md
+      # - First steps: getting-started/first-steps.md
+      # - Features: getting-started/features.md
+  - Guides:
+      - guides/index.md
+  - Concepts:
+      - concepts/index.md
+  - Reference:
+      - reference/index.md

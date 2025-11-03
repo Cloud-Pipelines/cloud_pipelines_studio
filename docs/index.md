@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+  - toc
+---
 # Tangle
 
 Tangle is a service and a Web app that allows the users to build and run Machine Learning pipelines using drag and drop without having to set up development environment.
