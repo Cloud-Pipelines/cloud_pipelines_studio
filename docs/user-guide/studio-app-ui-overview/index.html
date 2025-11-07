@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-user-guide/studio-app-ui-overview" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.8.1">
+<title data-rh="true">TangleML Studio UI Guide | Tangle</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://tangleml.com/img/logo.png"><meta data-rh="true" name="twitter:image" content="https://tangleml.com/img/logo.png"><meta data-rh="true" property="og:url" content="https://tangleml.com/docs/user-guide/studio-app-ui-overview"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="TangleML Studio UI Guide | Tangle"><meta data-rh="true" name="description" content="Overview of the TangleML Studio UI"><meta data-rh="true" property="og:description" content="Overview of the TangleML Studio UI"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://tangleml.com/docs/user-guide/studio-app-ui-overview"><link data-rh="true" rel="alternate" href="https://tangleml.com/docs/user-guide/studio-app-ui-overview" hreflang="en"><link data-rh="true" rel="alternate" href="https://tangleml.com/docs/user-guide/studio-app-ui-overview" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"TangleML Studio UI Guide","item":"https://tangleml.com/docs/user-guide/studio-app-ui-overview"}]}</script><link rel="stylesheet" href="/assets/css/styles.8d520cd2.css">
+<script src="/assets/js/runtime~main.a2030d10.js" defer="defer"></script>
+<script src="/assets/js/main.68c52bfb.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t="dark";var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",e||t),document.documentElement.setAttribute("data-theme-choice",e||t)}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/logo.png"><link rel="preload" as="image" href="/assets/images/HomeScreen_AllRuns-2de2f22ea4e7fbd91f90388cb804705f.png"><link rel="preload" as="image" href="/assets/images/HomeScreen_MyPipelines-64c295c1fa18ed746cfe75c465fd7c3a.png"><link rel="preload" as="image" href="/assets/images/Editor_1-44618c6d79be6ba65b7115ba9832cd9d.png"><link rel="preload" as="image" href="/assets/images/LeftPanel-85ffa3ade97c098762267671301404eb.png"><link rel="preload" as="image" href="/assets/images/GroupSelection-92889edd9fdf1bf1b5f59cd108a94bbd.png"><link rel="preload" as="image" href="/assets/images/Task-24c089117d229df202bcc840507a337d.png"><link rel="preload" as="image" href="/assets/images/RightPanel_Pipeline-82f072b85b4df2a1b5994d68adf8adb6.png"><link rel="preload" as="image" href="/assets/images/RightPanel_Arguments-a8709e94898d364138334c1afcc97058.png"><link rel="preload" as="image" href="/assets/images/RightPanel_Details-c3331528a78f69e5e7a4cea5de3a5c10.png"><link rel="preload" as="image" href="/assets/images/RightPanel_Configuration-b5f6c4d3cf03321a5b3fe3da2364df4a.png"><link rel="preload" as="image" href="/assets/images/CondenseNode-185a13ebfcc3ebf36475b0f4c38bd0f3.png"><link rel="preload" as="image" href="/assets/images/RunView-a156d6ca0ab42f031c5738daddebdeb8.png"><link rel="preload" as="image" href="/assets/images/RunView_Artifacts-a16417ea622850dd411ceca5778c5b6f.png"><link rel="preload" as="image" href="/assets/images/RunView_Details-4f5d4ea80e21dc1111734c72d70dce35.png"><link rel="preload" as="image" href="/assets/images/RunView_Logs-79ec120510f7f3ef54a9646468c3de54.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.png" alt="Tangle Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.png" alt="Tangle Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Tangle</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/">Documentation</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search searchBarContainer_NW3z" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_YFbd" value=""><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/">Overview</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/getting-started/first-pipeline">Getting Started</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/getting-started/first-pipeline">Building and troubleshooting your first pipeline</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/getting-started/core-concepts-and-terminology">Basic Terminology</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/user-guide/studio-app-ui-overview">TangleML Studio UI Guide</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/getting-started/pipelines-persistence">Pipelines Persistence</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/component-development/adding-components">Adding Components to Pipelines</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/getting-started/custom-service-accounts">Custom Service Accounts</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/core-concepts/what-are-components">Core Concepts</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/component-development/creating-components">Component Development</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/component-development/oasis-cli-manual">References</a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Getting Started</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">TangleML Studio UI Guide</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>TangleML Studio UI Guide</h1></header>
+<p>TangleML Studio provides a comprehensive web-based interface for building, managing, and running machine learning pipelines. This guide walks you through the three main areas of the application: Home screen, Editor, and Pipeline Run view.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="home-screen">Home Screen<a href="#home-screen" class="hash-link" aria-label="Direct link to Home Screen" title="Direct link to Home Screen">​</a></h2>
+<p>The Home screen serves as your dashboard for managing pipelines and monitoring runs across your TangleML instance.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="all-runs">All Runs<a href="#all-runs" class="hash-link" aria-label="Direct link to All Runs" title="Direct link to All Runs">​</a></h3>
+<p>The &quot;All Runs&quot; section displays a comprehensive list of all pipeline runs on your TangleML instance. This centralized view helps you track execution history and monitor pipeline performance across your organization.</p>
+<img src="/assets/images/HomeScreen_AllRuns-2de2f22ea4e7fbd91f90388cb804705f.png" alt="All Runs" style="width:100%;border-radius:6px">
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>Navigation</strong>: Browse through multiple pages of runs using Previous/Next page controls</li>
+<li><strong>Filtering</strong>: Filter runs by creator to find specific executions</li>
+<li><strong>Run Status</strong>: View the current status of each run (Running, Succeeded, Failed, Cancelled)</li>
+<li><strong>Quick Access</strong>: Click on any run to view detailed execution information</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>When filtering by creator, use the <strong>full name with exact match</strong>. Partial matches are not supported in this filter.</p></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="my-pipelines">My Pipelines<a href="#my-pipelines" class="hash-link" aria-label="Direct link to My Pipelines" title="Direct link to My Pipelines">​</a></h3>
+<p>The &quot;My Pipelines&quot; section manages your draft pipelines stored locally in browser storage. This is your personal workspace for pipeline development before submission.</p>
+<img src="/assets/images/HomeScreen_MyPipelines-64c295c1fa18ed746cfe75c465fd7c3a.png" alt="My Pipelines" style="width:100%;border-radius:6px">
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>Local Storage</strong>: All draft pipelines are stored in your browser&#x27;s local storage</li>
+<li><strong>Bulk Operations</strong>: Select multiple pipelines using checkboxes for bulk delete operations</li>
+<li><strong>Run History</strong>: Pipelines with existing runs display a &quot;runs&quot; popover showing execution history</li>
+<li><strong>Quick Actions</strong>: Edit, duplicate, or delete pipelines directly from the list</li>
+</ul>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Since draft pipelines are stored in browser storage, they are specific to your current browser and device. To access your pipelines from another device, export them as YAML files first.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="editor">Editor<a href="#editor" class="hash-link" aria-label="Direct link to Editor" title="Direct link to Editor">​</a></h2>
+<p>The Editor is the heart of TangleML Studio, providing an intuitive drag-and-drop interface for building machine learning pipelines.</p>
+<img src="/assets/images/Editor_1-44618c6d79be6ba65b7115ba9832cd9d.png" alt="Layout overview" style="width:100%;border-radius:6px">
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="layout-overview">Layout Overview<a href="#layout-overview" class="hash-link" aria-label="Direct link to Layout Overview" title="Direct link to Layout Overview">​</a></h3>
+<p>The Editor consists of three main areas:</p>
+<ol>
+<li><strong>Left Panel</strong>: Pipeline controls and Component Library</li>
+<li><strong>Canvas</strong>: Central workspace for visual pipeline construction</li>
+<li><strong>Right Panel</strong>: Context-sensitive information panel</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="top-bar">Top Bar<a href="#top-bar" class="hash-link" aria-label="Direct link to Top Bar" title="Direct link to Top Bar">​</a></h3>
+<p>The top bar provides quick access to essential functions:</p>
+<p><strong>Top Bar Elements:</strong></p>
+<ul>
+<li><strong>Pipeline Name:</strong> Shows the current pipeline’s name. Click to edit and rename your pipeline.</li>
+<li><strong>Import Pipeline:</strong> Load a pipeline into the editor from a file or by pasting YAML content.</li>
+<li><strong>New Pipeline:</strong> Start a fresh, empty pipeline project.</li>
+<li><strong>Backend Status:</strong> Check the status of your backend connection at a glance.</li>
+<li><strong>Settings:</strong> Access backend settings and adjust your personal preferences.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="left-panel">Left Panel<a href="#left-panel" class="hash-link" aria-label="Direct link to Left Panel" title="Direct link to Left Panel">​</a></h3>
+<p>The left panel organizes pipeline management and component access.</p>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/LeftPanel-85ffa3ade97c098762267671301404eb.png" alt="Left Panel" style="width:250px;border-radius:6px"></div><div><h4 class="anchor anchorWithStickyNavbar_LWe7" id="pipeline-actions">Pipeline Actions<a href="#pipeline-actions" class="hash-link" aria-label="Direct link to Pipeline Actions" title="Direct link to Pipeline Actions">​</a></h4><p>Access core pipeline operations:</p><ul>
+<li><strong>Save Pipeline</strong>: Saves current state to browser local storage</li>
+<li><strong>Save Pipeline As</strong>: Creates a copy with a new name</li>
+<li><strong>Export Pipeline</strong>: Downloads pipeline as YAML file</li>
+<li><strong>Import Pipeline</strong>: Load from file or paste YAML directly</li>
+</ul><h4 class="anchor anchorWithStickyNavbar_LWe7" id="runs-and-submission">Runs and Submission<a href="#runs-and-submission" class="hash-link" aria-label="Direct link to Runs and Submission" title="Direct link to Runs and Submission">​</a></h4><ul>
+<li><strong>Submit Run</strong>: Immediately schedules the current pipeline for execution</li>
+<li><strong>Recent Pipeline Runs</strong>: Displays popover with recent runs for quick access</li>
+</ul><h4 class="anchor anchorWithStickyNavbar_LWe7" id="components-section">Components Section<a href="#components-section" class="hash-link" aria-label="Direct link to Components Section" title="Direct link to Components Section">​</a></h4><p>The Components section provides comprehensive access to your pipeline building blocks:</p><p><strong>Search Functionality:</strong></p><ul>
+<li>Search by: name, input name, input type, output name, or output type</li>
+<li>Toggle between partial match (default) and exact match</li>
+<li>Example: Search &quot;CSV&quot; to find all CSV-related components</li>
+</ul><p><strong>Component Categories:</strong></p><ol>
+<li><strong>Used in Pipeline</strong>: Shows all components currently in your pipeline</li>
+</ol><ul>
+<li>Click any component to navigate directly to it on the canvas</li>
+</ul><ol start="2">
+<li><strong>User Components</strong>: Your personal component library</li>
+</ol><ul>
+<li>Components created or imported by you</li>
+<li>Stored locally in browser storage</li>
+<li>Can be deleted to free up local storage</li>
+</ul><ol start="3">
+<li>
+<p><strong>Special Components</strong>: Input and Output nodes for pipeline parameters</p>
+</li>
+<li>
+<p><strong>Standard Library</strong>: Hierarchical collection of standard components</p>
+</li>
+</ol><ul>
+<li>Data manipulation tools for various formats</li>
+<li>Machine learning frameworks (PyTorch, XGBoost, TensorFlow, TFX)</li>
+<li>Common operations and transformations</li>
+</ul></div></div></div>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Each component has an info icon (ⓘ) that opens a detailed dialog with three tabs:</p><ul>
+<li><strong>Details</strong>: Complete component information</li>
+<li><strong>Input/Output</strong>: Lists all inputs and outputs with metadata (required status, type, description)</li>
+<li><strong>Implementation</strong>: Full YAML definition of the component</li>
+</ul></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="canvas">Canvas<a href="#canvas" class="hash-link" aria-label="Direct link to Canvas" title="Direct link to Canvas">​</a></h3>
+<p>The Canvas is your infinite workspace for visual pipeline construction.</p>
+<ul>
+<li><strong>Pan</strong>: Click and drag to move around the canvas</li>
+<li><strong>Zoom</strong>: Scroll or use zoom controls to adjust view</li>
+<li><strong>Mini-map</strong>: Bottom-left corner shows your current position in the pipeline</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="canvas-toolbar">Canvas Toolbar<a href="#canvas-toolbar" class="hash-link" aria-label="Direct link to Canvas Toolbar" title="Direct link to Canvas Toolbar">​</a></h4>
+<p>The Canvas Toolbar provides a set of essential tools to manage and navigate your pipeline workspace:</p>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/GroupSelection-92889edd9fdf1bf1b5f59cd108a94bbd.png" alt="Canvas Toolbar" style="width:250px;border-radius:6px"></div><div><ul>
+<li><strong>Mini-map</strong>: Offers a visual overview of your entire pipeline layout, letting you quickly jump to different areas.</li>
+<li><strong>Zoom In/Out</strong>: Adjusts the canvas scale so you can focus on details or see the bigger picture.</li>
+<li><strong>Fit to View</strong>: Automatically rescales and centers your pipeline to fit the entire view.</li>
+<li><strong>Lock</strong>: Prevents accidental movement of tasks, allowing you to navigate safely without disturbing your layout.</li>
+<li><strong>Group Select</strong>: Enables you to select multiple tasks at once for bulk operations such as moving, deleting, or updating them.</li>
+</ul></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="task-representation">Task Representation<a href="#task-representation" class="hash-link" aria-label="Direct link to Task Representation" title="Direct link to Task Representation">​</a></h4>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/Task-24c089117d229df202bcc840507a337d.png" alt="Task Representation" style="width:250px;border-radius:6px"></div><div><ul>
+<li>Tasks appear as rectangles with inputs on the left, outputs on the right</li>
+<li>Connection points (handles) for creating data flows</li>
+<li>Visual indicators for validation status and recent changes. Red dot indicates a validation error.</li>
+</ul></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="basic-operations">Basic Operations<a href="#basic-operations" class="hash-link" aria-label="Direct link to Basic Operations" title="Direct link to Basic Operations">​</a></h4>
+<ul>
+<li><strong>Add Component</strong>: Drag from Component Library to canvas</li>
+<li><strong>Connect Tasks</strong>: Click output handle and drag to input handle</li>
+<li><strong>Move Tasks</strong>: Click and drag to reposition</li>
+<li><strong>Delete Connection</strong>: Select connection and press Backspace</li>
+</ul>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Use the Undo/Redo buttons (bottom-right) to quickly revert or replay recent changes.</p></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="undoredo-controls">Undo/Redo Controls<a href="#undoredo-controls" class="hash-link" aria-label="Direct link to Undo/Redo Controls" title="Direct link to Undo/Redo Controls">​</a></h4>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>The Editor tracks changes only for the browser session. If you reload the page, the history of changes will be lost.</p></div></div>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>The editor keeps your last 50 actions in memory, allowing you to step back through significant changes.</p></div></div>
+<p>The editor tracks all your changes. Controls are located in the bottom-right corner:</p>
+<ul>
+<li>
+<p><strong>Undo</strong> (Ctrl/Cmd+Z) - Revert your last action. The editor maintains a comprehensive history of all changes including: Node additions/deletions, Connection changes, Parameter modifications, Position adjustments</p>
+</li>
+<li>
+<p><strong>Redo</strong> (Ctrl/Cmd+Shift+Z) - Restore an undone change. The redo stack is cleared when you make a new change after undoing.</p>
+</li>
+</ul>
+<video src="/assets/medias/UndoRedo-6a2002a79314a3ccd7bc11e0ba56f765.mov" autoplay="" loop="" muted="" style="width:100%"></video>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="group-operations">Group Operations<a href="#group-operations" class="hash-link" aria-label="Direct link to Group Operations" title="Direct link to Group Operations">​</a></h4>
+<p>To activate group operations, select &quot;Group Selection&quot; in the canvas toolbar.</p>
+<p>When multiple nodes are selected, powerful batch operations become available:</p>
+<ul>
+<li>
+<p><strong>Delete</strong> - Remove all selected nodes at once (press Delete or Backspace). Connections to deleted nodes are automatically removed.</p>
+</li>
+<li>
+<p><strong>Duplicate</strong> - Create copies of selected nodes while preserving their relative positions and internal connections. New nodes appear offset from originals.</p>
+</li>
+<li>
+<p><strong>Update</strong> - Apply version updates or configuration changes to all selected nodes simultaneously. Useful when upgrading multiple components to newer versions.</p>
+</li>
+<li>
+<p><strong>Move as Group</strong> - Drag any selected node to move the entire selection while maintaining relative positions.</p>
+</li>
+</ul>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Use Ctrl/Cmd+A to select all nodes, then deselect specific ones with Ctrl/Cmd+Click.</p></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="pipeline-context-panel">Pipeline Context Panel<a href="#pipeline-context-panel" class="hash-link" aria-label="Direct link to Pipeline Context Panel" title="Direct link to Pipeline Context Panel">​</a></h3>
+<p>When no task is selected, the panel shows pipeline-level information:</p>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RightPanel_Pipeline-82f072b85b4df2a1b5994d68adf8adb6.png" alt="Pipeline Context" style="width:250px;border-radius:6px"></div><div><p><strong>Pipeline Information:</strong></p><ul>
+<li>Pipeline name with edit button</li>
+<li>Creation and last update timestamps</li>
+<li>Unique digest identifier (click to copy)</li>
+<li>Validation status and errors</li>
+</ul><p><strong>Pipeline Inputs/Outputs:</strong></p><ul>
+<li>All pipeline parameters via Input/Output nodes</li>
+<li>Editable values for Input nodes (required)</li>
+<li>Copy values to clipboard</li>
+</ul><p><strong>Pipeline YAML:</strong></p><ul>
+<li>View-only display of complete pipeline definition</li>
+<li>Full YAML content for reference</li>
+</ul></div></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="arguments-context-panel">Arguments Context Panel<a href="#arguments-context-panel" class="hash-link" aria-label="Direct link to Arguments Context Panel" title="Direct link to Arguments Context Panel">​</a></h3>
+<p>When a task is selected, the panel shows three tabs.</p>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RightPanel_Arguments-a8709e94898d364138334c1afcc97058.png" alt="Task Context" style="width:250px;border-radius:6px"></div><div><ul>
+<li>Complete list of task inputs and outputs</li>
+<li>Required arguments marked with asterisk (*)</li>
+<li>Per-argument controls:<!-- -->
+<ul>
+<li>Copy value to clipboard</li>
+<li>Reset to default value</li>
+<li>Exclude argument from execution</li>
+</ul>
+</li>
+<li>Green indicator for recently changed values</li>
+<li>Expandable multi-line editor for complex values</li>
+<li>Click row to view argument description</li>
+</ul></div></div></div>
+<p>When configuring component inputs, you have several actions available through the toolbar buttons:</p>
+<table><thead><tr><th>Action</th><th>Icon</th><th>Description</th></tr></thead><tbody><tr><td><strong>Copy Value</strong></td><td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></td><td>Copies the current input value to clipboard</td></tr><tr><td><strong>Reset to Default</strong></td><td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-restart" aria-hidden="true"><path d="M21 5H3"></path><path d="M7 12H3"></path><path d="M7 19H3"></path><path d="M12 18a5 5 0 0 0 9-3 4.5 4.5 0 0 0-4.5-4.5c-1.33 0-2.54.54-3.41 1.41L11 14"></path><path d="M11 10v4h4"></path></svg></td><td>Resets input to its default value from YAML</td></tr><tr><td><strong>Exclude Argument</strong></td><td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-delete" aria-hidden="true"><path d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"></path><path d="m12 9 6 6"></path><path d="m18 9-6 6"></path></svg></td><td>Excludes this input from execution</td></tr><tr><td><strong>Include Argument</strong></td><td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-plus" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M8 12h8"></path><path d="M12 8v8"></path></svg></td><td>Re-includes a previously excluded input</td></tr></tbody></table>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="excludeinclude-argument">Exclude/Include Argument<a href="#excludeinclude-argument" class="hash-link" aria-label="Direct link to Exclude/Include Argument" title="Direct link to Exclude/Include Argument">​</a></h4>
+<p>When you use the &quot;Exclude Argument&quot; action, the input is removed from the execution parameters.
+This is especially helpful for optional inputs that you do not need.
+The input field will become dimmed, but you can still edit its contents if you wish.</p>
+<p>Choosing the &quot;Include Argument&quot; action will re-add a previously excluded input.
+This returns the input to its active state in the pipeline.
+If the input was empty when you include it, it may automatically be filled in with the default value.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Empty input is not the same as excluded input. Excluded input is removed from the execution parameters, while empty input is still a value that will be passed to the task execution.</p></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="understanding-default-values">Understanding Default Values<a href="#understanding-default-values" class="hash-link" aria-label="Direct link to Understanding Default Values" title="Direct link to Understanding Default Values">​</a></h4>
+<p>Default values are specified in the component&#x27;s YAML definition and serve as fallback values when an input is not explicitly provided. Authors specify default values in the component specification.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>Default Value Divergence</div><div class="admonitionContent_BuS1"><p>The default value shown in the UI comes from the component&#x27;s YAML definition, but it may differ from what the actual component implementation uses. Here&#x27;s why:</p></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="details-context-panel">Details Context Panel<a href="#details-context-panel" class="hash-link" aria-label="Direct link to Details Context Panel" title="Direct link to Details Context Panel">​</a></h3>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RightPanel_Details-c3331528a78f69e5e7a4cea5de3a5c10.png" alt="Task Context" style="width:250px;border-radius:6px"></div><div><ul>
+<li>Component information for selected task</li>
+<li>Access to component YAML</li>
+<li>Action buttons:<!-- -->
+<ul>
+<li>Download YAML</li>
+<li>Download Python code (if available)</li>
+<li>Copy YAML to clipboard</li>
+<li>Duplicate task</li>
+<li>Edit component definition (if enabled in preferences)</li>
+<li>Delete task</li>
+</ul>
+</li>
+<li>Unique digest identifier</li>
+</ul></div></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="configuration-context-panel">Configuration Context Panel<a href="#configuration-context-panel" class="hash-link" aria-label="Direct link to Configuration Context Panel" title="Direct link to Configuration Context Panel">​</a></h3>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RightPanel_Configuration-b5f6c4d3cf03321a5b3fe3da2364df4a.png" alt="Task Context" style="width:250px;border-radius:6px"></div><div><ul>
+<li>You can disable cache for the task.</li>
+<li>Configure compute resources:<!-- -->
+<ul>
+<li>CPU cores</li>
+<li>Memory (GB)</li>
+<li>GPU enablement</li>
+<li>Cloud provider selection</li>
+</ul>
+</li>
+<li>Custom annotations section for additional metadata</li>
+</ul></div></div></div>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>You can collapse the task node. Just add a <code>w</code> and <code>h</code> field to your Node position annotation on a node.</p><img src="/assets/images/CondenseNode-185a13ebfcc3ebf36475b0f4c38bd0f3.png" alt="Collapsed task node example" width="100%"></div></div>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Tasks with validation errors will prevent pipeline execution. Check the validation section to identify and resolve issues before submitting runs.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="pipeline-run-view">Pipeline Run View<a href="#pipeline-run-view" class="hash-link" aria-label="Direct link to Pipeline Run View" title="Direct link to Pipeline Run View">​</a></h2>
+<p>The Pipeline Run view provides detailed insights into pipeline execution, allowing you to monitor progress, inspect outputs, and debug issues.</p>
+<img src="/assets/images/RunView-a156d6ca0ab42f031c5738daddebdeb8.png" alt="Pipeline Run View" style="width:100%;border-radius:6px">
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="run-overview">Run Overview<a href="#run-overview" class="hash-link" aria-label="Direct link to Run Overview" title="Direct link to Run Overview">​</a></h3>
+<p>The main area displays the pipeline graph with execution status for each task:</p>
+<ul>
+<li>Visual indicators show task status (Pending, Running, Succeeded, Failed, Skipped)</li>
+<li>Execution timeline and duration for completed tasks</li>
+<li>Real-time updates for running pipelines</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="run-actions">Run Actions<a href="#run-actions" class="hash-link" aria-label="Direct link to Run Actions" title="Direct link to Run Actions">​</a></h3>
+<p>Available actions depend on run status:</p>
+<ul>
+<li><strong>Inspect</strong>: Open the pipeline editor for the run. Only available for pipelines that are stored in the local browser storage.</li>
+<li><strong>Cancel</strong>: Stop a running pipeline. Only user that created the run can cancel it.</li>
+<li><strong>Re-run</strong>: Re-run a pipeline with same parameters.</li>
+<li><strong>Clone</strong>: Create new pipeline from this run&#x27;s configuration.</li>
+</ul>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Use the logs tab to debug failed tasks. Error messages and stack traces help identify issues quickly.</p></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="context-panel">Context Panel<a href="#context-panel" class="hash-link" aria-label="Direct link to Context Panel" title="Direct link to Context Panel">​</a></h3>
+<p>The right panel provides detailed information about the run or selected task.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="pipeline-run-details-no-task-selected">Pipeline Run Details (No Task Selected)<a href="#pipeline-run-details-no-task-selected" class="hash-link" aria-label="Direct link to Pipeline Run Details (No Task Selected)" title="Direct link to Pipeline Run Details (No Task Selected)">​</a></h4>
+<p>When viewing the overall run:</p>
+<ul>
+<li>Run status and metadata</li>
+<li>Start and end times</li>
+<li>Total duration</li>
+<li>Input parameters used</li>
+<li>Overall pipeline outputs</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="task-execution-details-task-selected">Task Execution Details (Task Selected)<a href="#task-execution-details-task-selected" class="hash-link" aria-label="Direct link to Task Execution Details (Task Selected)" title="Direct link to Task Execution Details (Task Selected)">​</a></h4>
+<p>When a specific task is selected, three tabs provide comprehensive execution information:</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1-artifacts-tab">1. Artifacts Tab<a href="#1-artifacts-tab" class="hash-link" aria-label="Direct link to 1. Artifacts Tab" title="Direct link to 1. Artifacts Tab">​</a></h4>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RunView_Artifacts-a16417ea622850dd411ceca5778c5b6f.png" alt="Pipeline Run View" style="width:250px;border-radius:6px"></div><div><ul>
+<li>Output artifacts produced by the task</li>
+<li>Download links for files</li>
+<li>Preview for supported formats</li>
+<li>Artifact metadata (size, type, location)</li>
+</ul></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="2-details-tab">2. Details Tab<a href="#2-details-tab" class="hash-link" aria-label="Direct link to 2. Details Tab" title="Direct link to 2. Details Tab">​</a></h4>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RunView_Details-4f5d4ea80e21dc1111734c72d70dce35.png" alt="Pipeline Run View" style="width:250px;border-radius:6px"></div><div><ul>
+<li>Task execution metadata</li>
+<li>Start and completion times</li>
+<li>Duration</li>
+<li>Resource usage statistics</li>
+<li>Component version used</li>
+<li>Execution environment details</li>
+</ul></div></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="3-logs-tab">3. Logs Tab<a href="#3-logs-tab" class="hash-link" aria-label="Direct link to 3. Logs Tab" title="Direct link to 3. Logs Tab">​</a></h4>
+<div><div style="display:flex;flex-direction:row;gap:4em;width:100%;justify-content:flex-start;align-content:flex-start"><div style="width:fit-content"><img src="/assets/images/RunView_Logs-79ec120510f7f3ef54a9646468c3de54.png" alt="Pipeline Run View" style="width:250px;border-radius:6px"></div><div><ul>
+<li>Complete execution logs</li>
+<li>Stdout and stderr output</li>
+<li>System messages</li>
+<li>Error traces for debugging</li>
+<li>Log filtering and search capabilities</li>
+</ul></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="best-practices">Best Practices<a href="#best-practices" class="hash-link" aria-label="Direct link to Best Practices" title="Direct link to Best Practices">​</a></h2>
+<ol>
+<li><strong>Save Frequently</strong>: Use &quot;Save Pipeline&quot; regularly to preserve your work</li>
+<li><strong>Validate Before Running</strong>: Check the validation panel for errors before submitting</li>
+<li><strong>Use Descriptions</strong>: Add meaningful descriptions to help others understand your pipeline</li>
+<li><strong>Organize Components</strong>: Keep your User Components library organized by removing unused items</li>
+<li><strong>Monitor Runs</strong>: Check the &quot;All Runs&quot; section to track pipeline performance over time</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="keyboard-shortcuts">Keyboard Shortcuts<a href="#keyboard-shortcuts" class="hash-link" aria-label="Direct link to Keyboard Shortcuts" title="Direct link to Keyboard Shortcuts">​</a></h2>
+<table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead><tbody><tr><td><code>Ctrl/Cmd + S</code></td><td>Save Pipeline</td></tr><tr><td><code>Ctrl/Cmd + Z</code></td><td>Undo</td></tr><tr><td><code>Ctrl/Cmd + Shift + Z</code></td><td>Redo</td></tr><tr><td><code>Delete/Backspace</code></td><td>Delete selected element</td></tr><tr><td><code>Ctrl/Cmd + A</code></td><td>Select all tasks</td></tr><tr><td><code>Escape</code></td><td>Deselect all</td></tr></tbody></table>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="troubleshooting">Troubleshooting<a href="#troubleshooting" class="hash-link" aria-label="Direct link to Troubleshooting" title="Direct link to Troubleshooting">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="common-issues">Common Issues<a href="#common-issues" class="hash-link" aria-label="Direct link to Common Issues" title="Direct link to Common Issues">​</a></h3>
+<p><strong>Pipeline won&#x27;t run:</strong></p>
+<ul>
+<li>Check validation panel for errors</li>
+<li>Ensure all required inputs have values</li>
+<li>Verify component compatibility</li>
+</ul>
+<p><strong>Lost draft pipelines:</strong></p>
+<ul>
+<li>Draft pipelines are stored in browser local storage</li>
+<li>Clearing browser data will remove drafts</li>
+<li>Always export important pipelines as YAML backups</li>
+</ul>
+<p><strong>Can&#x27;t connect components:</strong></p>
+<ul>
+<li>Verify input/output type compatibility</li>
+<li>Check for circular dependencies</li>
+<li>Ensure required inputs are satisfied</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Remember that browser local storage has size limits. Export and backup important pipelines regularly to avoid data loss.</p></div></div></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/getting-started/core-concepts-and-terminology"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Basic Terminology</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/getting-started/pipelines-persistence"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Pipelines Persistence</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#home-screen" class="table-of-contents__link toc-highlight">Home Screen</a><ul><li><a href="#all-runs" class="table-of-contents__link toc-highlight">All Runs</a></li><li><a href="#my-pipelines" class="table-of-contents__link toc-highlight">My Pipelines</a></li></ul></li><li><a href="#editor" class="table-of-contents__link toc-highlight">Editor</a><ul><li><a href="#layout-overview" class="table-of-contents__link toc-highlight">Layout Overview</a></li><li><a href="#top-bar" class="table-of-contents__link toc-highlight">Top Bar</a></li><li><a href="#left-panel" class="table-of-contents__link toc-highlight">Left Panel</a></li><li><a href="#canvas" class="table-of-contents__link toc-highlight">Canvas</a></li><li><a href="#pipeline-context-panel" class="table-of-contents__link toc-highlight">Pipeline Context Panel</a></li><li><a href="#arguments-context-panel" class="table-of-contents__link toc-highlight">Arguments Context Panel</a></li><li><a href="#details-context-panel" class="table-of-contents__link toc-highlight">Details Context Panel</a></li><li><a href="#configuration-context-panel" class="table-of-contents__link toc-highlight">Configuration Context Panel</a></li></ul></li><li><a href="#pipeline-run-view" class="table-of-contents__link toc-highlight">Pipeline Run View</a><ul><li><a href="#run-overview" class="table-of-contents__link toc-highlight">Run Overview</a></li><li><a href="#run-actions" class="table-of-contents__link toc-highlight">Run Actions</a></li><li><a href="#context-panel" class="table-of-contents__link toc-highlight">Context Panel</a></li></ul></li><li><a href="#best-practices" class="table-of-contents__link toc-highlight">Best Practices</a></li><li><a href="#keyboard-shortcuts" class="table-of-contents__link toc-highlight">Keyboard Shortcuts</a></li><li><a href="#troubleshooting" class="table-of-contents__link toc-highlight">Troubleshooting</a><ul><li><a href="#common-issues" class="table-of-contents__link toc-highlight">Common Issues</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs">Tutorial</a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Shopify. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
