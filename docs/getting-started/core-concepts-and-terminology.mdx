@@ -1,0 +1,223 @@
+---
+id: core-concepts-and-terminology
+title: Basic Terminology
+description: Understanding the fundamental building blocks of Pipeline Studio
+---
+
+import {ImageAnnotation} from "@site/src/components/ImageAnnotation";
+
+This guide explains the essential concepts and terminology you'll encounter when working with Pipeline Studio. Understanding these fundamentals will help you build and manage ML pipelines more effectively.
+
+## The Building Blocks
+
+### Components vs Tasks vs Execution
+
+The relationship between Components and Tasks is fundamental to understanding Pipeline Studio:
+
+| Concept       | Definition                                                  | Analogy                                                       |
+| ------------- | ----------------------------------------------------------- | ------------------------------------------------------------- |
+| **Component** | A reusable template or blueprint that defines functionality | Like a recipe or function definition                             |
+| **Task**      | An instance of a component specified in the Pipeline and visible on the canvas             | Like cooking from a recipe or declaring a function call in code |
+| **Execution** | A run of a task with actual input/outputs artifacts, execution metadata (start/end time, launcher-specific information), logs, program exit code etc | Like calling a function with actual arguments in a runtime |
+
+
+#### Components: The Blueprints
+
+:::info
+More about Components in the ["What are Components?"](/docs/core-concepts/what-are-components) section.
+:::
+
+A **Component** is a self-contained, reusable unit of functionality defined by a ComponentSpec YAML file. Think of it as a template that describes:
+
+- **What it does** (metadata and description)
+- **What it needs** (inputs)
+- **What it produces** (outputs)
+- **How it runs** (implementation)
+
+Components live in your component library and can be reused across multiple pipelines. Each component has a unique digest (hash) that identifies its specific version.
+
+```yaml
+# Example Component Definition
+name: Data Preprocessor
+description: Cleans and prepares raw data
+inputs:
+  - name: raw_data
+    type: Dataset
+outputs:
+  - name: clean_data
+    type: Dataset
+implementation:
+  container:
+    image: python:3.9
+    # ... implementation details
+```
+
+#### Tasks: Components in Action
+
+A **Task** is what you get when you drag a component onto the pipeline canvas. It's a configured instance of a component with:
+
+- A unique task ID within the pipeline
+- Specific argument values
+- Connections to other tasks
+- Execution options
+
+<img 
+  src={require("./assets/PipelinePreview.png").default} 
+  alt="Task screenshot" 
+  style={{ width: "100%", borderRadius: "6px",  }} 
+/>
+
+:::tip
+Think of the relationship this way: If a Component is like a function definition, then a Task is like calling that function with specific arguments.
+:::
+
+When you place the same component multiple times on the canvas, you create multiple tasks, each with its own configuration:
+
+```yaml
+# In a pipeline, tasks are instances of components
+tasks:
+  preprocess_train: # Task 1 using Data Preprocessor component
+    componentRef:
+      name: Data Preprocessor
+    arguments:
+      raw_data: train_dataset.csv
+
+  preprocess_test: # Task 2 using the same component
+    componentRef:
+      name: Data Preprocessor
+    arguments:
+      raw_data: test_dataset.csv
+```
+
+#### Execution: Running the Task
+
+Executions is analogous to a "function call execution at runtime".
+
+Execution = Task + actual input/outputs artifacts, execution metadata (start/end time, launcher-specific information), logs, program exit code etc
+
+
+:::tip
+**The 1-to-Many Cascade**: One component can be used in many tasks (even multiple times in the same pipeline), and each task can have many executions (e.g., daily runs). This relationship is similar to database foreign keys.
+:::
+
+### Pipelines: Orchestrating Components
+
+A pipeline in TangleML is a special kind of component known as a "graph component." Instead of acting as a standalone container, its main role is to orchestrate multiple tasks and manage how data flows between them. Pipelines are highly reusable—they can themselves be used as components in other pipelines, enabling flexible and hierarchical workflows. When a pipeline runs, it takes care of task dependencies and directs the flow of data, making sure everything happens in the right order.
+
+:::warning
+Remember: Every pipeline is a component, but not every component is a pipeline. Only root graph components are pipelines.
+:::
+
+#### Pipeline as a Component
+
+Since pipelines are components, they can be:
+
+- Saved as ComponentSpec YAML files
+- Added to component libraries
+- Nested within other pipelines (creating hierarchical workflows)
+- Shared and versioned like any other component
+
+
+## Inputs and Outputs
+
+:::info
+Read more about [Inputs and Outputs and Data Flow](/docs/core-concepts/understanding-inputs-outputs) section.
+:::
+
+**Inputs** define what data or parameters a component needs to operate. They serve as the component's interface for receiving information.
+
+Inputs can come in two main forms.
+Value inputs are simple parameters that are passed directly.
+Path inputs are used for file or directory location - for passing large artifacts.
+
+**Outputs** define what a component produces after execution. They allow components to pass results to downstream tasks.
+
+:::tip
+Outputs from one task become available as inputs to connected downstream tasks, creating the data flow in your pipeline.
+:::
+
+## Artifacts
+
+<ImageAnnotation src={require('./assets/Artifacts.png').default} alt="Artifacts" >
+Artifacts are the data produced by components (read: any output), stored in TangleML's artifact storage system:
+
+- **Blobs**: Nameless files (just data)
+- **Directories**: Nameless containers with named files inside
+
+:::tip
+Small values may be stored in the TangleML database without putting any TTL on them.
+:::
+
+</ImageAnnotation>
+
+### Blob vs Directory Artifacts
+
+#### Blob Artifacts
+
+Blobs are nameless data files. Components always write to and read from a file named `data`:
+
+```python
+# Component writes blob
+with open("/tmp/outputs/model/data", "wb") as f:
+    pickle.dump(model, f)
+
+# Downstream component reads blob
+with open("/tmp/inputs/model/data", "rb") as f:
+    model = pickle.load(f)
+```
+
+This naming convention ensures compatibility - no component expects specific filenames.
+
+#### Directory Artifacts
+
+Directories are nameless containers, but files inside retain their names:
+
+```python
+# Component writes directory
+output_dir = "/tmp/outputs/dataset/data/"
+os.makedirs(output_dir, exist_ok=True)
+pd.DataFrame(...).to_parquet(f"{output_dir}/train.parquet")
+pd.DataFrame(...).to_parquet(f"{output_dir}/test.parquet")
+
+# Downstream component reads directory
+input_dir = "/tmp/inputs/dataset/data/"
+train = pd.read_parquet(f"{input_dir}/train.parquet")
+test = pd.read_parquet(f"{input_dir}/test.parquet")
+```
+
+### Artifact Attributes
+
+Every artifact has:
+
+- **Size**: Total bytes (for directories, cumulative size)
+- **Hash**: MD5 (Google Cloud) or SHA-256 (local) for content-based caching
+- **Is Directory**: Boolean flag
+- **URL**: Storage location (hidden from components, managed by system)
+
+### Storage and Retention
+
+| Artifact Type                 | Storage Duration  | What's Retained After TTL  |
+| ----------------------------- | ----------------- | -------------------------- |
+| **Large artifacts**           | 30 days (Shopify) | Metadata only (size, hash) |
+| **Small artifacts**           | Permanent         | Full value in database     |
+
+:::warning Data Retention
+At Shopify, artifacts containing merchant or PII data are automatically deleted after 30 days due to compliance requirements. After deletion, you'll see metadata but get 404 errors when accessing the actual data.
+:::
+
+
+## Summary
+
+Understanding these core concepts helps you work effectively with Pipeline Studio:
+
+:::tip
+**Quick Reference:**
+
+- **Component** = Reusable template/blueprint
+- **Task** = Component instance on canvas
+- **Pipeline** = Graph component orchestrating tasks
+- **Input/Output** = Data interface between tasks
+- **Artifact** = File-based data (datasets, models, etc.)
+  :::
+
+With these fundamentals in place, you're ready to start building powerful ML pipelines by combining components into tasks, connecting them through inputs and outputs, and managing data flow through artifacts.

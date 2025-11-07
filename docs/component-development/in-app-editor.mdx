@@ -1,0 +1,202 @@
+---
+id: in-app-editor
+title: In-App Component Editor
+---
+
+import { ImageAnnotation } from "@site/src/components/ImageAnnotation";
+
+# Using the In-App Component Editor
+
+The In-App Component Editor allows you to create and edit custom components directly in your browser without leaving the TangleML interface. This guide will walk you through creating, editing, and managing components using this powerful feature.
+
+## Prerequisites
+
+:::warning
+The In-App Component Editor is a beta feature. Make sure you have the **"In-App Component Editor Beta Feature"** enabled in your settings before proceeding.
+
+<details>
+<summary>How to enable the beta feature</summary>
+
+<img src={require("./assets/EnableBetaFlag_InAppEditor.png").default} alt="Enable In-App Editor Beta Feature" style={{width: "100%", borderRadius: "6px"}} />
+
+
+</details>
+
+:::
+
+## Accessing the Component Editor
+
+To access the In-App Component Editor:
+
+1. Create a new pipeline or open an existing one.
+2. Click the **"Add Component"** button next to the Components section in the left panel.
+3. Look for the **"New"** tab in the "Add component" dialog.
+
+<img src={require("./assets/InAppEditor_1.png").default} alt="In-App Component Editor screenshot" style={{width: "100%", borderRadius: "6px"}} />
+
+
+## Creating Components
+
+### Editor Modes
+
+The In-App Component Editor works with two main use-cases:
+
+1. **Plain YAML ComponentSpec Editing** - For components using any language (JavaScript, Ruby, Bash, etc.)
+2. **Python Direct Code Editing** - Special support for editing Python function code directly
+
+:::tip
+While components can use any language and framework, only Python components get special treatment with direct code editing. All other languages use the YAML editor.
+:::
+
+### Available Templates
+
+The app provides quick-start templates for:
+
+- **Python** - Direct code editing with automatic YAML generation
+- **JavaScript** - YAML-based editing with Node.js container
+- **Ruby** - YAML-based editing with Ruby container
+- **Bash** - YAML-based editing with shell scripts
+
+:::info
+The editor doesn't limit what language or framework you can use. You can modify any template to use your preferred technology stack.
+:::
+
+### YAML-Based Components (JavaScript, Ruby, Bash, etc.)
+
+When you select a non-Python template (e.g., JavaScript), the editor opens with:
+
+- **YAML Editor** (left panel) - Edit the component specification
+- **Fast Preview** (right panel) - See real-time preview of your changes
+
+<img src={require("./assets/InAppEditor_Yaml.png").default} alt="YAML-based Component Editor screenshot" style={{width: "100%", borderRadius: "6px"}} />
+
+:::info
+Learn more about the [Component Specification](/docs/reference/schema).
+:::
+
+:::tip
+Add descriptions to your inputs! They help other users understand how to use your component.
+:::
+
+#### Editing the Component Logic
+
+1. Modify the command section in the container implementation
+2. Specify your base Docker image (can be any language runtime)
+3. Access inputs and outputs as arguments in your code
+4. Changes reflect immediately in the preview panel
+
+:::info
+You can change the base image to use any language runtime or framework. For example, change from `node:latest` to `python:3.9`, `golang:1.20`, or any other Docker image.
+:::
+
+### Python Components (Direct Code Editing)
+
+Python is the only language that receives special treatment in TangleML with direct code editing capabilities:
+
+- **Python Code Editor** (left panel) - Edit the Python function directly
+- **Configuration Tab** - Specify container image, packages, and annotations
+- **Generated YAML** (right panel) - Automatically generated from your Python code
+
+<img src={require("./assets/InAppEditor_Python.png").default} alt="Python Component Editor screenshot" style={{width: "100%", borderRadius: "6px"}} />
+
+:::tip
+Python is unique: Unlike other languages that require manual YAML editing, Python components automatically generate inputs and outputs from your function's docstring and type hints.
+:::
+
+#### Configuration Options
+
+<ImageAnnotation src={require("./assets/InAppEditor_PythonConfiguration.png").default} alt="Python Component Editor Configuration">
+  - **Container Image**: Specify the container image to use.
+  - **Packages to Install**: Specify the packages to install in the container.
+  - **Annotations**: Specify the annotations for the component.
+
+  To "Delete" any row -  hover or focus the row and click the "Delete" icon.
+</ImageAnnotation>
+
+### Saving Your Component
+
+1. Click the **Save** button when your component is valid
+2. A success toast notification confirms creation
+3. Find your new component in the **User Components** folder
+
+:::warning
+Components are stored in your browser's IndexedDB and may be lost if you clear your website data. Consider exporting important components for backup.
+:::
+
+## Using Your Components
+
+### Adding to Canvas
+
+1. Locate your component in the **User Components** folder
+2. Drag and drop it onto the canvas
+3. Configure the inputs as needed
+4. Run the pipeline
+
+:::tip
+The first run of a new component may be slower as the Docker image needs to be downloaded to the computational cluster.
+:::
+
+## Editing Existing Components
+
+You can edit any existing component through:
+
+1. **Component Details Dialog**
+
+   - Right-click on a component
+   - Select "Component Details"
+   - Click **"Edit Component Definition"**
+
+2. **Context Panel**
+   - Select a component on the canvas
+   - In the right panel, go to the Details tab
+   - Click **"Edit Component Definition"**
+
+After clicking the **"Save"** button in the In-App Component Editor, you will be presented with the following dialog:
+
+<ImageAnnotation src={require("./assets/InAppEditor_ReplaceDialog.png").default} alt="Save Options">
+  - **Save as New** - Keep the edited version under a different name
+  - **Replace Existing** - Update the existing component with your changes
+</ImageAnnotation>
+
+## Updating Component Task Instances on the Canvas
+
+:::warning
+Editing a component doesn't automatically update instances already on the canvas. To update a canvas instance:
+
+1. Save your edited component
+2. Drag the updated component from User Components
+3. Drop it onto the existing task
+4. Confirm the replacement in the dialog
+   :::
+
+## Component Annotations
+
+Annotations provide metadata about your component:
+
+```yaml
+annotations:
+  author: "Your Name <your.email@example.com>"
+  version: "1.0.0"
+  description: "Component purpose and usage"
+```
+
+:::tip
+Include author information so future users can contact you with questions about your component.
+:::
+
+## Best Practices
+
+1. **Add Clear Descriptions** - Help users understand inputs and outputs
+2. **Use Meaningful Names** - Make component and parameter names self-explanatory
+3. **Test Before Saving** - Validate your logic works as expected
+4. **Document Your Code** - Especially for complex logic
+5. **Version Your Components** - Use annotations to track versions
+
+## Troubleshooting
+
+| Issue                            | Solution                                           |
+| -------------------------------- | -------------------------------------------------- |
+| Save button disabled             | Check for YAML validation errors in the editor     |
+| Component not appearing          | Refresh the User Components folder                 |
+| First run is slow                | Normal behavior - Docker image is being downloaded |
+| Changes not reflecting on canvas | Remember to replace existing instances manually    |

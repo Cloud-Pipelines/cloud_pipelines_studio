@@ -1,0 +1,232 @@
+---
+id: published-components-library
+title: Published Components Library
+---
+
+import { ImageAnnotation } from "@site/src/components/ImageAnnotation";
+
+
+The Published Components Library enables teams to share, discover, and maintain reusable components across workspaces. This guide walks you through the essential workflows for publishing, discovering, and maintaining components.
+
+## Overview
+
+The Published Components Library provides a centralized repository where teams can:
+
+- **Share** tested and documented components
+- **Discover** components created by team members
+- **Maintain** component versions with seamless upgrades
+- **Ensure quality** through validation checks
+
+:::tip
+Published components are shared across your entire workspace, making it easy for teams to collaborate and reuse proven solutions.
+:::
+
+:::tip
+
+<ImageAnnotation src={require("./assets/PublishedComponents_Badge.png").default} alt="Published Components Icon">
+  Published Components are marked with a special icon on the canvas.
+</ImageAnnotation>
+:::
+
+## Publishing Components
+
+Transform your local components into reusable workspace assets through the publishing workflow.
+
+### Steps to Publish
+
+1. **Add your component** to the Pipeline Editor canvas
+   - Drop a new component onto the canvas
+   - Ensure it's fully configured and tested
+
+2. **Navigate to User Components folder in the left panel**
+   - Locate your component in the "User components" folder
+   - Click on the component info icon (ⓘ) to open the component info dialog
+
+3. **Access the Publish Tab**
+   - Click on the "Publish" tab in the component panel
+   - Review the component details and metadata
+
+4. **Quality Validation**
+   - The system automatically checks:
+     - Documentation completeness
+     - Required metadata fields
+     - Component structure validity
+   - Address any validation issues before proceeding
+
+5. **Confirm Publication**
+   - Review the publication summary
+   - Click "Publish component" button
+   - Your component is now available to all workspace users
+
+<video
+  src={require("./assets/PublishedComponents_Publish.mp4").default}
+  autoPlay
+  loop
+  muted
+  playsInline
+  style={{
+    width: "100%",
+  }}
+>
+  Your browser does not support the video tag.
+</video>
+
+
+:::warning
+Once published, components cannot be deleted to ensure pipeline stability. Instead, publish new versions to update functionality.
+:::
+
+### Best Practices for Publishing
+
+| Practice                   | Description                                                            |
+| -------------------------- | ---------------------------------------------------------------------- |
+| **Complete Documentation** | Include clear descriptions, parameter explanations, and usage examples |
+| **Semantic Naming**        | Use descriptive names that clearly indicate the component's purpose    |
+| **Version Tags**           | Add meaningful tags to help users understand version changes           |
+| **Test Thoroughly**        | Validate your component in different scenarios before publishing       |
+
+## Discovering Components
+
+Find and integrate published components quickly using the search and discovery features.
+
+### Search and Add Components
+
+1. **Use the Search Bar**
+   - Type keywords in the component search input
+   - Filter by name or author
+   - Results update in real-time
+
+2. **Drag to Canvas**
+   - Select your desired component from search results
+   - Drag it directly onto the Pipeline Editor canvas
+   - Configure parameters as needed
+
+<video
+  src={require("./assets/PublishedComponents_Usage.mp4").default}
+  autoPlay
+  loop
+  muted
+  playsInline
+  style={{
+    width: "100%",
+  }}
+>
+  Your browser does not support the video tag.
+</video>
+
+:::tip
+Use descriptive search terms like "data preprocessing" or "model training" to find relevant components faster.
+:::
+
+
+## Releasing New Versions
+
+Keep your published components up-to-date with the versioning workflow.
+
+### Update Process
+
+1. **Load the Updated Component**
+   - Drop the new version onto the Pipeline Editor canvas
+   - Make necessary modifications and improvements
+
+2. **Access the Component**
+   - Navigate to "User components" in the sidebar
+   - Select the component you're updating
+
+3. **Release New Version**
+   - Click the "Publish" tab
+   - Click "Release new version" button
+   - Add version notes describing changes
+
+<video
+  src={require("./assets/PublishedComponents_NewVersion.mp4").default}
+  autoPlay
+  loop
+  muted
+  playsInline
+  style={{
+    width: "100%",
+  }}
+>
+  Your browser does not support the video tag.
+</video>
+
+:::warning
+Breaking changes should be clearly documented in version notes to help users migrate smoothly.
+:::
+
+## Receiving Component Upgrades
+
+Stay current with automatic upgrade notifications and guided update flows.
+
+### Automatic Detection
+
+The system checks for component updates on every page refresh:
+
+- Scans all components in your pipelines
+- Identifies available upgrades
+- Notifies you of update opportunities
+
+### Upgrade Workflow
+
+1. **Review Notification**
+   - Look for the upgrade indicator on page load
+   - Click the "Review" button when updates are available
+
+2. **Follow Guided Update**
+   - Review changes between versions
+   - Check compatibility notes
+   - Preview impact on your pipeline
+   - Apply updates selectively or all at once
+
+3. **Validate Changes**
+   - Test pipeline after updates
+   - Verify parameter mappings
+   - Check for any deprecation warnings
+
+<video
+  src={require("./assets/PublishedComponents_Upgrade.mp4").default}
+  autoPlay
+  loop
+  muted
+  playsInline
+  style={{
+    width: "100%",
+  }}
+>
+  Your browser does not support the video tag.
+</video>
+
+:::tip
+You can choose to skip the upgrade for curtain tasks by clicking the "Skip" button. You can use different component versions for different tasks in the same pipeline.
+:::
+
+
+## Best Practices
+
+### For Publishers
+
+- **Document thoroughly**: Include examples and edge cases
+- **Version responsibly**: Use semantic versioning
+- **Communicate changes**: Write clear release notes
+- **Maintain backward compatibility**: When possible
+
+### For Consumers
+
+- **Review before updating**: Check release notes and breaking changes
+- **Test in development**: Validate updates before production
+- **Pin versions**: For critical pipelines that need stability
+- **Report issues**: Help improve components by providing feedback
+
+## Troubleshooting
+
+
+| Issue                                 | Solution                                           |
+| ------------------------------------- | -------------------------------------------------- |
+| **Validation fails during publish**   | Review documentation and required fields           |
+| **Component not appearing in search** | Wait a few moments for indexing, refresh page      |
+| **Conflicts during update**           | Review parameter mappings and adjust manually      |
+
+:::warning
+Always backup your pipeline configuration before applying major component updates, especially in production environments.
+:::

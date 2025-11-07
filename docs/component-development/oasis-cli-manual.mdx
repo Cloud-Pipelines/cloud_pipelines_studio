@@ -1,0 +1,334 @@
+---
+title: Oasis CLI Manual
+description: Complete reference guide for the Oasis CLI tool for component and container management
+---
+
+# Oasis CLI Manual
+
+The Oasis CLI is a command-line tool for creating and managing pipeline components and their container environments. It streamlines the development workflow for building reusable ML pipeline components.
+
+## Installation
+
+```bash
+# Install via uvx (recommended)
+alias oasis="uvx --refresh --from git+https://github.com/Cloud-Pipelines/oasis-cli.git@stable oasis"
+
+# Or install directly
+pip install git+https://github.com/Cloud-Pipelines/oasis-cli.git@stable
+```
+
+:::tip
+Using `uvx` with the `--refresh` flag ensures you always run the latest stable version without managing local installations.
+:::
+
+## Command Structure
+
+```
+oasis [OPTIONS] COMMAND [ARGS]
+```
+
+The CLI follows a hierarchical command structure with two main command groups:
+
+- `containers` - Manage container images and dependencies
+- `components` - Manage pipeline components
+
+## Quick Start
+
+### 1. Create a Component Root
+
+```bash
+# Create and initialize a component root directory
+components_root="$(pwd)/components_root1"
+mkdir -p "$components_root" && cd "$components_root"
+
+# Initialize container root from template
+oasis containers new python-uv-container-root \
+    --container-image-name <writeable-container-image-uri>
+```
+
+### 2. Build Container Image
+
+:::info
+By default, Oasis CLI will use Podman. Ensure you have Podman installed and configured correctly. 
+You may need to start your Podman `podman machine start` before building the container.
+:::
+
+```bash
+# Add dependencies (optional)
+uv add numpy pandas scikit-learn
+
+# Build and push container
+oasis containers build
+```
+
+### 3. Create a Component
+
+```bash
+# Create component directory
+mkdir -p my_component && cd my_component
+
+# Initialize component from template
+oasis components new python-function-component
+
+# Generate component.yaml
+oasis components regenerate python-function-component \
+    --container-image-from "${components_root}/oasis.pipeline_component_root.yaml" \
+    --dependencies-from "${components_root}/pyproject.toml"
+```
+
+
+## Container Commands
+
+### `oasis containers new`
+
+Creates a new container root with necessary configuration files.
+
+**Synopsis:**
+
+```bash
+oasis containers new TEMPLATE [OPTIONS]
+```
+
+**Templates:**
+
+| Template                   | Description                              | Generated Files                                                                 |
+| -------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------- |
+| `python-uv-container-root` | Python container with uv package manager | `Dockerfile`, `pyproject.toml`, `uv.lock`, `oasis.pipeline_component_root.yaml` |
+
+**Options:**
+
+| Option                   | Description                                       | Required |
+| ------------------------ | ------------------------------------------------- | -------- |
+| `--container-image-name` | Container registry URI where image will be pushed | Yes      |
+
+**Example:**
+
+```bash
+oasis containers new python-uv-container-root \
+    --container-image-name gcr.io/my-project/my-components-base:latest
+```
+
+:::warning
+Ensure you have write permissions to the specified container registry before running the build command.
+:::
+
+### `oasis containers build`
+
+Builds a Docker container image and pushes it to the specified registry.
+
+**Synopsis:**
+
+```bash
+oasis containers build [OPTIONS]
+```
+
+**Behavior:**
+
+- Reads configuration from `oasis.pipeline_component_root.yaml`
+- Builds Docker image using the `Dockerfile` in current directory
+- Pushes to the registry specified during `new` command
+- Updates the image digest in configuration
+
+**Example:**
+
+```bash
+# From within the container root directory
+oasis containers build
+```
+
+
+## Component Commands
+
+### `oasis components new`
+
+Creates a new component from a template.
+
+**Synopsis:**
+
+```bash
+oasis components new TEMPLATE [OPTIONS]
+```
+
+**Templates:**
+
+| Template                    | Description                     | Generated Files |
+| --------------------------- | ------------------------------- | --------------- |
+| `python-function-component` | Basic Python function component | `component.py`  |
+
+**Example:**
+
+```bash
+mkdir my_component && cd my_component
+oasis components new python-function-component
+```
+
+### `oasis components regenerate`
+
+Regenerates the `component.yaml` specification from the component source code.
+
+**Synopsis:**
+
+```bash
+oasis components regenerate TEMPLATE [OPTIONS]
+```
+
+**Options:**
+
+| Option                   | Description                              | Required |
+| ------------------------ | ---------------------------------------- | -------- |
+| `--container-image-from` | Path to container root YAML file         | Yes      |
+| `--dependencies-from`    | Path to pyproject.toml with dependencies | Yes      |
+
+**Example:**
+
+```bash
+oasis components regenerate python-function-component \
+    --container-image-from "../components_root/oasis.pipeline_component_root.yaml" \
+    --dependencies-from "../components_root/pyproject.toml"
+```
+
+:::tip
+The `regenerate` command parses your `component.py` file to automatically generate the ComponentSpec YAML, including inputs, outputs, and metadata.
+:::
+
+
+## Workflow Patterns
+
+### Pattern 1: Single Component Root, Multiple Components
+
+Best for components that share dependencies.
+
+```bash
+# 1. Create shared container root
+components_root="$(pwd)/shared_components"
+mkdir -p "$components_root" && cd "$components_root"
+oasis containers new python-uv-container-root \
+    --container-image-name my-registry/shared-base:latest
+
+# 2. Add common dependencies
+uv add numpy pandas scikit-learn
+oasis containers build
+
+# 3. Create multiple components using the same base
+for comp in preprocessor trainer evaluator; do
+    mkdir -p "../$comp" && cd "../$comp"
+    oasis components new python-function-component
+    oasis components regenerate python-function-component \
+        --container-image-from "${components_root}/oasis.pipeline_component_root.yaml" \
+        --dependencies-from "${components_root}/pyproject.toml"
+done
+```
+
+### Pattern 2: Updating Dependencies
+
+When you need to add new dependencies to existing components:
+
+```bash
+# 1. Navigate to container root
+cd components_root
+
+# 2. Add new dependencies
+uv add tensorflow transformers
+
+# 3. Rebuild container
+oasis containers build
+
+# 4. Regenerate affected components
+cd ../my_component
+oasis components regenerate python-function-component \
+    --container-image-from "../components_root/oasis.pipeline_component_root.yaml" \
+    --dependencies-from "../components_root/pyproject.toml"
+```
+
+## File Structure
+
+A typical project structure using oasis-cli:
+
+```
+project/
+├── Dockerfile
+├── pyproject.toml
+├── uv.lock
+├── oasis.pipeline_component_root.yaml
+└── components/
+    ├── data_processor/
+    │   ├── component.py
+    │   └── component.yaml
+    ├── model_trainer/
+    │   ├── component.py
+    │   └── component.yaml
+    └── evaluator/
+        ├── component.py
+        └── component.yaml
+```
+
+## Configuration Files
+
+### oasis.pipeline_component_root.yaml
+
+Stores container configuration.
+
+### component.yaml
+
+Generated ComponentSpec for pipeline components:
+
+```yaml
+name: My Component
+description: Component description
+inputs:
+  - name: input_data
+    type: Dataset
+outputs:
+  - name: output_model
+    type: Model
+implementation:
+  container:
+    image: gcr.io/project/components@sha256:...
+    command: ["python", "component.py"]
+```
+
+## Environment Variables
+
+```shell
+CLOUD_PIPELINES_CONTAINER_EXECUTION_ID
+CLOUD_PIPELINES_EXECUTION_NODE_ID
+CLOUD_PIPELINES_PIPELINE_RUN_ID
+CLOUD_PIPELINES_PIPELINE_RUN_CREATED_BY
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Container push fails:**
+
+- TODO
+
+**Component regeneration fails:**
+
+- Verify `component.py` follows the expected component structure
+- Check that container root YAML exists and is valid
+- Ensure all file paths are correct
+
+**Dependency conflicts:**
+
+- Use `uv` to manage Python dependencies consistently
+- Clear `uv.lock` and regenerate if conflicts persist
+- Ensure Python version compatibility
+
+
+## Best Practices
+
+1. **Version Control:** Commit both source files (`component.py`) and generated files (`component.yaml`)
+
+2. **Container Tagging:** Use semantic versioning for container images
+
+   ```bash
+   --container-image-name my-registry/components:v1.0.0
+   ```
+
+3. **Dependency Management:** Keep dependencies minimal and specify exact versions in `pyproject.toml`
+
+4. **Component Organization:** Group related components under the same container root to share dependencies
+
+5. **Testing:** Test components individually before integrating into pipelines

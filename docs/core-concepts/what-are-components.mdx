@@ -1,0 +1,394 @@
+---
+
+id: what-are-components
+title: What are Components?
+
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# What are Components?
+
+A *Component* is a self-contained, reusable unit of functionality defined by a ComponentSpec YAML file, that performs a specific task, such as loading data, training a model, or evaluating results. Think of components as **reusable building blocks** for your machine learning pipelines - like LEGO pieces that you can snap together to build complex workflows.
+
+The ComponentSpec YAML file describes the component's interface, implementation, and metadata. That's why every component is:
+
+- **Reusable**: Once created, a component can be used across multiple pipelines.
+- **Self-contained**: Components don't depend on each other directly - they communicate through inputs and outputs.
+- **Simple to use**: Each component is like a function - it takes inputs, does something, and produces outputs.
+- **Shareable**: Components can be shared between teams and projects.
+- **Uniquely identifiable**: Every component has a unique digest (hash) computed from its YAML content.
+
+:::info
+Learn more about the ComponentSpec in the [ComponentSpec](/docs/reference/schema) section.
+:::
+
+Unlike systems like Airflow (Python classes) or Ray (Python functions), TangleML components are **command-line interface (CLI) programs**. This design choice enables:
+
+- **Language neutrality** - Components can be written in any language (Python, Java, Go, etc.).
+- **Distributed orchestration** - Components run on different machines, at different times.
+- **Clear isolation** - No shared memory or state between components.
+
+
+## Component Types
+
+Components come in two flavors, each suited for different use cases:
+
+### 1. Container Components
+
+Container components run code inside a container (usually a Docker container). They're perfect for:
+
+- Execute CLI programs inside Docker containers
+- Provide isolated, reproducible environments
+- Handle data through local file paths (abstracted from actual storage)
+- Use structural placeholders for dynamic value injection
+
+
+:::tip
+Container components are language-agnostic! Whether your code is Python, Java, R, or even shell scripts, as long as it can run as a CLI program, it can be a container component.
+:::
+
+<Tabs>
+<TabItem value="js" label="JavaScript">
+
+```yaml
+name: Filter text
+inputs:
+- {name: Text}
+- {name: Pattern, default: '.*'}
+outputs:
+- {name: Filtered text}
+metadata:
+  annotations:
+    author: Alexey Volkov <alexey.volkov@ark-kun.com>
+    canonical_location: 'https://raw.githubusercontent.com/Ark-kun/pipeline_components/master/components/sample/JavaScript/component.yaml'
+implementation:
+  container:
+    image: node:18.0.0-slim
+    command:
+    - node
+    - --eval
+    - |
+      const fs = require("fs");
+      const readline = require("readline");
+      const path = require("path");
+
+      // Skip 1 argument when running the script using node --eval
+      // Skip 2 arguments when running from file: `node grep.js`.
+      const args = process.argv.slice(1);
+      const input_path = args[0];
+      const pattern = args[1];
+      const output_path = args[2];
+
+      fs.mkdirSync(path.dirname(output_path), { recursive: true });
+      const inputStream = fs.createReadStream(input_path);
+      const outputStream = fs.createWriteStream(output_path, { encoding: "utf8" });
+      var lineReader = readline.createInterface({
+        input: inputStream,
+        terminal: false,
+      });
+      lineReader.on("line", function (line) {
+        if (line.match(pattern)) {
+          outputStream.write(line + "\n");
+        }
+      });
+    - {inputPath: Text}
+    - {inputValue: Pattern}
+    - {outputPath: Filtered text}
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```yaml
+name: Filter text
+inputs:
+- {name: Text}
+- {name: Pattern, default: '.*'}
+outputs:
+- {name: Filtered text}
+metadata:
+  annotations:
+    author: Alexey Volkov <alexey.volkov@ark-kun.com>
+    canonical_location: 'https://raw.githubusercontent.com/Ark-kun/pipeline_components/master/components/sample/Python_script/component.yaml'
+implementation:
+  container:
+    image: python:3.8
+    command:
+    - sh
+    - -ec
+    - |
+      # This is how additional packages can be installed dynamically
+      python3 -m pip install pip six
+      # Run the rest of the command after installing the packages.
+      "$0" "$@"
+    - python3
+    - -u  # Auto-flush. We want the logs to appear in the console immediately.
+    - -c  # Inline scripts are easy, but have size limitaions and the error traces do not show source lines.
+    - |
+      import os
+      import re
+      import sys
+
+      text_path = sys.argv[1]
+      pattern = sys.argv[2]
+      filtered_text_path = sys.argv[3]
+
+      regex = re.compile(pattern)
+
+      os.makedirs(os.path.dirname(filtered_text_path), exist_ok=True)
+      with open(text_path, 'r') as reader:
+          with open(filtered_text_path, 'w') as writer:
+              for line in reader:
+                  if regex.search(line):
+                      writer.write(line)
+    - {inputPath: Text}
+    - {inputValue: Pattern}
+    - {outputPath: Filtered text}
+```
+
+</TabItem>
+<TabItem value="shell" label="Shell">
+
+```yaml
+name: Filter text
+inputs:
+- {name: Text}
+- {name: Pattern, default: '.*'}
+outputs:
+- {name: Filtered text}
+metadata:
+  annotations:
+    author: Alexey Volkov <alexey.volkov@ark-kun.com>
+    canonical_location: 'https://raw.githubusercontent.com/Ark-kun/pipeline_components/master/components/sample/Shell_script/component.yaml'
+implementation:
+  container:
+    image: alpine
+    command:
+    - sh
+    - -ec
+    - |
+      text_path=$0
+      pattern=$1
+      filtered_text_path=$2
+      mkdir -p "$(dirname "$filtered_text_path")"
+
+      grep "$pattern" < "$text_path" > "$filtered_text_path"
+    - {inputPath: Text}
+    - {inputValue: Pattern}
+    - {outputPath: Filtered text}
+```
+
+</TabItem>
+</Tabs>
+
+### 2. Graph Components
+
+Graph components orchestrate multiple other components (in scope of a Graph component called "tasks"). They're ideal for:
+
+- Define how data flows between components
+- Can contain both container and other graph components
+- Wire outputs from one component to inputs of another
+
+:::tip
+**Fun Fact**: A Pipeline in TangleML is technically just a Graph Component! It's the root graph component that gets sent for execution.
+:::
+
+```yaml
+name: Model Training Pipeline
+description: Complete training pipeline with preprocessing and evaluation
+inputs:
+  - name: dataset_path
+    type: String
+  - name: model_type
+    type: String
+outputs:
+  - name: trained_model
+    type: Model
+  - name: evaluation_report
+    type: Metrics
+implementation:
+  graph:
+    tasks:
+      preprocess:
+        componentRef:
+          url: https://example.com/components/preprocess.yaml
+        arguments:
+          raw_data:
+            componentInputValue: dataset_path
+
+      train:
+        componentRef:
+          url: https://example.com/components/train.yaml
+        arguments:
+          training_data:
+            taskOutputArgument:
+              taskId: preprocess
+              outputName: processed_data
+          model_type:
+            componentInputValue: model_type
+
+      evaluate:
+        componentRef:
+          url: https://example.com/components/evaluate.yaml
+        arguments:
+          model:
+            taskOutputArgument:
+              taskId: train
+              outputName: model
+
+    outputValues:
+      trained_model:
+        taskOutputArgument:
+          taskId: train
+          outputName: model
+      evaluation_report:
+        taskOutputArgument:
+          taskId: evaluate
+          outputName: metrics
+```
+
+Building a pipeline component via code is not simple,  since some complex workflows may reach multiple levels of nesting and thousands of lines. Because of this, TangleML provides a visual editor to build pipelines.
+
+## Inputs and Outputs
+
+Components communicate through well-defined interface: inputs and outputs, creating a clear contract for data flow.
+
+:::info
+Read more about Inputs and Outputs in the [ComponentSpec](/docs/reference/schema#inputspec) section.
+:::
+
+
+When components are connected in a pipeline, the outputs produced by one component flow seamlessly as inputs into the next. 
+Depending on the data type, this information is transferred either as raw values or as files, ensuring smooth and flexible data movement between components. 
+
+
+:::info
+Read more about [Data Flow](/docs/core-concepts/understanding-inputs-outputs)
+:::
+
+To define inputs and outputs, inside the ComponentSpec YAML file, you need to specify the name, type, description, default value and optional flag. On example of "Chicago Taxi Trips dataset":
+
+```yaml
+...
+inputs:
+  - name: Where
+    type: String
+    default: trip_start_timestamp>="1900-01-01" AND trip_start_timestamp<"2100-01-01"
+  - name: Limit
+    type: Integer
+    description: Number of rows to return. The rows are randomly sampled.
+    default: '1000'
+  - name: Select
+    type: String
+    default: >-
+      tips,trip_seconds,trip_miles,pickup_community_area,dropoff_community_area,fare,tolls,extras,trip_total
+  - name: Format
+    type: String
+    description: Output data format. Supports csv,tsv,cml,rdf,json
+    default: csv
+outputs:
+  - name: Table
+    description: Result type depends on format. CSV and TSV have header.
+...
+```
+
+To use defined inputs and outputs in the actual implementation, you can use [structural placeholders](/docs/reference/schema#inputvalueplaceholder) like:
+
+```yaml
+...
+implementation:
+  container:
+    image: alpine/curl:8.14.1
+    command:
+      - sh
+      - '-c'
+      - >
+        set -e -x -o pipefail
+
+        output_path="$0"
+        select="$1"
+        where="$2"
+        limit="$3"
+        format="$4"
+        mkdir -p "$(dirname "$output_path")"
+        curl --get
+        'https://data.cityofchicago.org/resource/wrvz-psew.'"${format}" \
+            --data-urlencode '$limit='"${limit}" \
+            --data-urlencode '$where='"${where}" \
+            --data-urlencode '$select='"${select}" \
+            | sed -E 's/"([^",\]*)"/\1/g' > "$output_path"
+      - outputPath: Table
+      - inputValue: Select
+      - inputValue: Where
+      - inputValue: Limit
+      - inputValue: Format
+...
+```
+
+During the execution, TangleML will replace the placeholders with the actual values. 
+For `inputValue` placeholders, TangleML will replace the placeholder with the actual value. 
+For `inputPath` and `outputPath` placeholders, TangleML will replace the placeholder with the actual file path in the local to container file system.
+
+<img src={require('./assets/Components_InputsOutputs.png').default} alt="Input and Output Structural Placeholders" />
+
+So the actual command line invocation would be:
+
+```bash
+container_component --Table "/tmp/outputs/Table" --Select "tips,trip_seconds,..." --Where "trip_start_timestamp>=..." --Limit "1000" --Format "csv"
+```
+
+## Language-Agnostic
+
+One of the most powerful features is that **components can be written in any programming language**. 
+
+You can choose any container image as the starting point for your component. 
+This means you're not restricted to the default language images - you can pick what works best for your needs. 
+For example, you might use images with pre-installed machine learning libraries (like TensorFlow or PyTorch), data processing frameworks (like Apache Spark or Dask), your own custom Docker images with all the tools your code requires, or even multi-stage builds to make your images smaller and more secure. 
+This flexibility lets you run your code in exactly the right environment for your task.
+
+
+## The Optional Type System
+
+Like Python, TangleML uses optional typing - types are for humans and tools, not the execution system:
+
+- **Components declare types** for inputs/outputs (e.g., `Model`, `Dataset`, `Float`)
+- **The system doesn't enforce types** - it treats everything as blobs, directories, or strings
+- **Tools can use types** for validation, UI hints, and documentation
+- **The real authority** is the consuming component - only it knows if data is valid
+
+:::warning
+**Who validates a TensorFlow model?** Not TangleML! The system won't parse or validate your data formats. The component that consumes a "TensorFlow model" is the only real authority on whether the data is valid. This design choice enhances security (no parsing vulnerabilities) and flexibility (version compatibility).
+:::
+
+## Best Practices
+
+### Design Pure Components
+
+Components should be **deterministic**: same inputs → same outputs. This enables TangleML's powerful caching.
+
+```python
+# ✅ Good: Pure function
+def process(data_path: str, threshold: float) -> str:
+    data = load_data(data_path)
+    processed = apply_threshold(data, threshold)
+    output_path = "/tmp/outputs/processed/data"
+    save_data(processed, output_path)
+    return output_path
+
+# ✅ Good: Stabilize with cutoff date
+def fetch_metrics(
+    start_date: str,
+    end_date: str,  # Cutoff date makes it deterministic
+    database: str
+) -> str:
+    query = f"SELECT * FROM metrics WHERE date BETWEEN '{start_date}' AND '{end_date}'"
+    # Results are now reproducible
+
+# ❌ Bad: Hidden dependencies
+def process(data_path: str) -> str:
+    threshold = fetch_from_api()  # Non-deterministic!
+    timestamp = datetime.now()    # Changes every run!
+    return processed_data_path
+```

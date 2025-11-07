@@ -1,0 +1,458 @@
+---
+id: studio-app-ui-overview
+title: TangleML Studio UI Guide
+description: Overview of the TangleML Studio UI
+---
+
+import { ImageAnnotation } from "@site/src/components/ImageAnnotation";
+import { HelpCircle, Info, Delete, Maximize2, PlusSquare, Copy, ListRestart } from "lucide-react";
+
+# TangleML Studio UI Guide
+
+TangleML Studio provides a comprehensive web-based interface for building, managing, and running machine learning pipelines. This guide walks you through the three main areas of the application: Home screen, Editor, and Pipeline Run view.
+
+## Home Screen
+
+The Home screen serves as your dashboard for managing pipelines and monitoring runs across your TangleML instance.
+
+### All Runs
+
+The "All Runs" section displays a comprehensive list of all pipeline runs on your TangleML instance. This centralized view helps you track execution history and monitor pipeline performance across your organization.
+
+<img src={require("./assets/HomeScreen_AllRuns.png").default} alt="All Runs" style={{width: "100%", borderRadius: "6px"}} />
+
+**Key Features:**
+
+- **Navigation**: Browse through multiple pages of runs using Previous/Next page controls
+- **Filtering**: Filter runs by creator to find specific executions
+- **Run Status**: View the current status of each run (Running, Succeeded, Failed, Cancelled)
+- **Quick Access**: Click on any run to view detailed execution information
+
+:::warning
+When filtering by creator, use the **full name with exact match**. Partial matches are not supported in this filter.
+:::
+
+### My Pipelines
+
+The "My Pipelines" section manages your draft pipelines stored locally in browser storage. This is your personal workspace for pipeline development before submission.
+
+<img src={require("./assets/HomeScreen_MyPipelines.png").default} alt="My Pipelines" style={{width: "100%", borderRadius: "6px"}} />
+
+**Key Features:**
+
+- **Local Storage**: All draft pipelines are stored in your browser's local storage
+- **Bulk Operations**: Select multiple pipelines using checkboxes for bulk delete operations
+- **Run History**: Pipelines with existing runs display a "runs" popover showing execution history
+- **Quick Actions**: Edit, duplicate, or delete pipelines directly from the list
+
+:::tip
+Since draft pipelines are stored in browser storage, they are specific to your current browser and device. To access your pipelines from another device, export them as YAML files first.
+:::
+
+## Editor
+
+The Editor is the heart of TangleML Studio, providing an intuitive drag-and-drop interface for building machine learning pipelines.
+
+<img src={require("./assets/Editor_1.png").default} alt="Layout overview" style={{width: "100%", borderRadius: "6px"}} />
+
+### Layout Overview
+
+The Editor consists of three main areas:
+
+1. **Left Panel**: Pipeline controls and Component Library
+2. **Canvas**: Central workspace for visual pipeline construction
+3. **Right Panel**: Context-sensitive information panel
+
+### Top Bar
+
+The top bar provides quick access to essential functions:
+
+**Top Bar Elements:**
+
+- **Pipeline Name:** Shows the current pipeline’s name. Click to edit and rename your pipeline.
+- **Import Pipeline:** Load a pipeline into the editor from a file or by pasting YAML content.
+- **New Pipeline:** Start a fresh, empty pipeline project.
+- **Backend Status:** Check the status of your backend connection at a glance.
+- **Settings:** Access backend settings and adjust your personal preferences.
+
+### Left Panel
+
+The left panel organizes pipeline management and component access.
+
+<ImageAnnotation src={require("./assets/LeftPanel.png").default} alt="Left Panel">
+    #### Pipeline Actions
+
+    Access core pipeline operations:
+
+    - **Save Pipeline**: Saves current state to browser local storage
+    - **Save Pipeline As**: Creates a copy with a new name
+    - **Export Pipeline**: Downloads pipeline as YAML file
+    - **Import Pipeline**: Load from file or paste YAML directly
+
+    #### Runs and Submission
+
+    - **Submit Run**: Immediately schedules the current pipeline for execution
+    - **Recent Pipeline Runs**: Displays popover with recent runs for quick access
+
+    #### Components Section
+
+    The Components section provides comprehensive access to your pipeline building blocks:
+
+    **Search Functionality:**
+
+    - Search by: name, input name, input type, output name, or output type
+    - Toggle between partial match (default) and exact match
+    - Example: Search "CSV" to find all CSV-related components
+
+    **Component Categories:**
+
+    1. **Used in Pipeline**: Shows all components currently in your pipeline
+    - Click any component to navigate directly to it on the canvas
+    2. **User Components**: Your personal component library
+    - Components created or imported by you
+    - Stored locally in browser storage
+    - Can be deleted to free up local storage
+
+    3. **Special Components**: Input and Output nodes for pipeline parameters
+
+    4. **Standard Library**: Hierarchical collection of standard components
+    - Data manipulation tools for various formats
+    - Machine learning frameworks (PyTorch, XGBoost, TensorFlow, TFX)
+    - Common operations and transformations
+</ImageAnnotation>
+
+
+:::tip
+Each component has an info icon (ⓘ) that opens a detailed dialog with three tabs:
+
+- **Details**: Complete component information
+- **Input/Output**: Lists all inputs and outputs with metadata (required status, type, description)
+- **Implementation**: Full YAML definition of the component
+  :::
+
+### Canvas
+
+The Canvas is your infinite workspace for visual pipeline construction.
+
+- **Pan**: Click and drag to move around the canvas
+- **Zoom**: Scroll or use zoom controls to adjust view
+- **Mini-map**: Bottom-left corner shows your current position in the pipeline
+
+#### Canvas Toolbar
+
+The Canvas Toolbar provides a set of essential tools to manage and navigate your pipeline workspace:
+
+<ImageAnnotation src={require("./assets/GroupSelection.png").default} alt="Canvas Toolbar">
+
+
+- **Mini-map**: Offers a visual overview of your entire pipeline layout, letting you quickly jump to different areas.
+- **Zoom In/Out**: Adjusts the canvas scale so you can focus on details or see the bigger picture.
+- **Fit to View**: Automatically rescales and centers your pipeline to fit the entire view.
+- **Lock**: Prevents accidental movement of tasks, allowing you to navigate safely without disturbing your layout.
+- **Group Select**: Enables you to select multiple tasks at once for bulk operations such as moving, deleting, or updating them.
+
+</ImageAnnotation>
+
+#### Task Representation
+
+<ImageAnnotation src={require("./assets/Task.png").default} alt="Task Representation">
+
+- Tasks appear as rectangles with inputs on the left, outputs on the right
+- Connection points (handles) for creating data flows
+- Visual indicators for validation status and recent changes. Red dot indicates a validation error.
+
+</ImageAnnotation>
+
+#### Basic Operations
+
+- **Add Component**: Drag from Component Library to canvas
+- **Connect Tasks**: Click output handle and drag to input handle
+- **Move Tasks**: Click and drag to reposition
+- **Delete Connection**: Select connection and press Backspace
+
+:::tip
+Use the Undo/Redo buttons (bottom-right) to quickly revert or replay recent changes.
+:::
+
+#### Undo/Redo Controls
+
+:::info
+The Editor tracks changes only for the browser session. If you reload the page, the history of changes will be lost.
+:::
+
+:::info
+The editor keeps your last 50 actions in memory, allowing you to step back through significant changes.
+:::
+
+The editor tracks all your changes. Controls are located in the bottom-right corner:
+
+- **Undo** (Ctrl/Cmd+Z) - Revert your last action. The editor maintains a comprehensive history of all changes including: Node additions/deletions, Connection changes, Parameter modifications, Position adjustments
+
+- **Redo** (Ctrl/Cmd+Shift+Z) - Restore an undone change. The redo stack is cleared when you make a new change after undoing.
+
+<video src={require("./assets/UndoRedo.mov").default} autoPlay loop muted style={{ width: "100%" }} />
+
+#### Group Operations
+
+To activate group operations, select "Group Selection" in the canvas toolbar.
+
+When multiple nodes are selected, powerful batch operations become available:
+
+- **Delete** - Remove all selected nodes at once (press Delete or Backspace). Connections to deleted nodes are automatically removed.
+
+- **Duplicate** - Create copies of selected nodes while preserving their relative positions and internal connections. New nodes appear offset from originals.
+
+- **Update** - Apply version updates or configuration changes to all selected nodes simultaneously. Useful when upgrading multiple components to newer versions.
+
+- **Move as Group** - Drag any selected node to move the entire selection while maintaining relative positions.
+
+:::tip
+Use Ctrl/Cmd+A to select all nodes, then deselect specific ones with Ctrl/Cmd+Click.
+:::
+
+
+### Pipeline Context Panel
+
+When no task is selected, the panel shows pipeline-level information:
+
+<ImageAnnotation src={require("./assets/RightPanel_Pipeline.png").default} alt="Pipeline Context">
+
+**Pipeline Information:**
+
+- Pipeline name with edit button
+- Creation and last update timestamps
+- Unique digest identifier (click to copy)
+- Validation status and errors
+
+**Pipeline Inputs/Outputs:**
+
+- All pipeline parameters via Input/Output nodes
+- Editable values for Input nodes (required)
+- Copy values to clipboard
+
+**Pipeline YAML:**
+
+- View-only display of complete pipeline definition
+- Full YAML content for reference
+
+</ImageAnnotation>
+
+
+### Arguments Context Panel
+
+When a task is selected, the panel shows three tabs.
+
+<ImageAnnotation src={require("./assets/RightPanel_Arguments.png").default} alt="Task Context">
+- Complete list of task inputs and outputs
+- Required arguments marked with asterisk (\*)
+- Per-argument controls:
+  - Copy value to clipboard
+  - Reset to default value
+  - Exclude argument from execution
+- Green indicator for recently changed values
+- Expandable multi-line editor for complex values
+- Click row to view argument description
+</ImageAnnotation>
+
+
+When configuring component inputs, you have several actions available through the toolbar buttons:
+
+
+| Action               | Icon | Description                                 | 
+| -------------------- | ---- | ------------------------------------------- | 
+| **Copy Value**       | <Copy/> | Copies the current input value to clipboard | 
+| **Reset to Default** | <ListRestart />   | Resets input to its default value from YAML | 
+| **Exclude Argument** | <Delete />   | Excludes this input from execution          | 
+| **Include Argument** | <PlusSquare />   | Re-includes a previously excluded input     | 
+
+
+#### Exclude/Include Argument
+
+When you use the "Exclude Argument" action, the input is removed from the execution parameters.
+This is especially helpful for optional inputs that you do not need.
+The input field will become dimmed, but you can still edit its contents if you wish.
+
+Choosing the "Include Argument" action will re-add a previously excluded input.
+This returns the input to its active state in the pipeline.
+If the input was empty when you include it, it may automatically be filled in with the default value.
+
+:::warning
+Empty input is not the same as excluded input. Excluded input is removed from the execution parameters, while empty input is still a value that will be passed to the task execution.
+:::
+
+#### Understanding Default Values
+
+Default values are specified in the component's YAML definition and serve as fallback values when an input is not explicitly provided. Authors specify default values in the component specification.
+
+:::warning Default Value Divergence
+The default value shown in the UI comes from the component's YAML definition, but it may differ from what the actual component implementation uses. Here's why:
+:::
+
+
+### Details Context Panel
+
+<ImageAnnotation src={require("./assets/RightPanel_Details.png").default} alt="Task Context">
+- Component information for selected task
+- Access to component YAML
+- Action buttons:
+  - Download YAML
+  - Download Python code (if available)
+  - Copy YAML to clipboard
+  - Duplicate task
+  - Edit component definition (if enabled in preferences)
+  - Delete task
+- Unique digest identifier
+
+</ImageAnnotation>
+
+### Configuration Context Panel
+
+<ImageAnnotation src={require("./assets/RightPanel_Configuration.png").default} alt="Task Context">
+
+- You can disable cache for the task.
+- Configure compute resources:
+  - CPU cores
+  - Memory (GB)
+  - GPU enablement
+  - Cloud provider selection
+- Custom annotations section for additional metadata
+
+</ImageAnnotation>
+
+:::tip
+You can collapse the task node. Just add a `w` and `h` field to your Node position annotation on a node.
+<img src={require("./assets/CondenseNode.png").default} alt="Collapsed task node example" width="100%" />
+:::
+
+
+:::warning
+Tasks with validation errors will prevent pipeline execution. Check the validation section to identify and resolve issues before submitting runs.
+:::
+
+## Pipeline Run View
+
+The Pipeline Run view provides detailed insights into pipeline execution, allowing you to monitor progress, inspect outputs, and debug issues.
+
+<img src={require("./assets/RunView.png").default} alt="Pipeline Run View" style={{width: "100%", borderRadius: "6px"}} />
+
+### Run Overview
+
+The main area displays the pipeline graph with execution status for each task:
+
+- Visual indicators show task status (Pending, Running, Succeeded, Failed, Skipped)
+- Execution timeline and duration for completed tasks
+- Real-time updates for running pipelines
+
+### Run Actions
+
+Available actions depend on run status:
+
+- **Inspect**: Open the pipeline editor for the run. Only available for pipelines that are stored in the local browser storage.
+- **Cancel**: Stop a running pipeline. Only user that created the run can cancel it.
+- **Re-run**: Re-run a pipeline with same parameters.
+- **Clone**: Create new pipeline from this run's configuration.
+
+
+:::tip
+Use the logs tab to debug failed tasks. Error messages and stack traces help identify issues quickly.
+:::
+
+### Context Panel
+
+The right panel provides detailed information about the run or selected task.
+
+#### Pipeline Run Details (No Task Selected)
+
+When viewing the overall run:
+
+- Run status and metadata
+- Start and end times
+- Total duration
+- Input parameters used
+- Overall pipeline outputs
+
+
+#### Task Execution Details (Task Selected)
+
+When a specific task is selected, three tabs provide comprehensive execution information:
+
+#### 1. Artifacts Tab
+
+<ImageAnnotation src={require("./assets/RunView_Artifacts.png").default} alt="Pipeline Run View">
+
+- Output artifacts produced by the task
+- Download links for files
+- Preview for supported formats
+- Artifact metadata (size, type, location)
+</ImageAnnotation>
+
+
+#### 2. Details Tab
+
+<ImageAnnotation src={require("./assets/RunView_Details.png").default} alt="Pipeline Run View">
+
+- Task execution metadata
+- Start and completion times
+- Duration
+- Resource usage statistics
+- Component version used
+- Execution environment details
+</ImageAnnotation>
+
+#### 3. Logs Tab
+
+<ImageAnnotation src={require("./assets/RunView_Logs.png").default} alt="Pipeline Run View">
+
+- Complete execution logs
+- Stdout and stderr output
+- System messages
+- Error traces for debugging
+- Log filtering and search capabilities
+</ImageAnnotation>
+
+
+
+## Best Practices
+
+1. **Save Frequently**: Use "Save Pipeline" regularly to preserve your work
+2. **Validate Before Running**: Check the validation panel for errors before submitting
+3. **Use Descriptions**: Add meaningful descriptions to help others understand your pipeline
+4. **Organize Components**: Keep your User Components library organized by removing unused items
+5. **Monitor Runs**: Check the "All Runs" section to track pipeline performance over time
+
+## Keyboard Shortcuts
+
+| Shortcut               | Action                  |
+| ---------------------- | ----------------------- |
+| `Ctrl/Cmd + S`         | Save Pipeline           |
+| `Ctrl/Cmd + Z`         | Undo                    |
+| `Ctrl/Cmd + Shift + Z` | Redo                    |
+| `Delete/Backspace`     | Delete selected element |
+| `Ctrl/Cmd + A`         | Select all tasks        |
+| `Escape`               | Deselect all            |
+
+## Troubleshooting
+
+### Common Issues
+
+**Pipeline won't run:**
+
+- Check validation panel for errors
+- Ensure all required inputs have values
+- Verify component compatibility
+
+**Lost draft pipelines:**
+
+- Draft pipelines are stored in browser local storage
+- Clearing browser data will remove drafts
+- Always export important pipelines as YAML backups
+
+**Can't connect components:**
+
+- Verify input/output type compatibility
+- Check for circular dependencies
+- Ensure required inputs are satisfied
+
+:::warning
+Remember that browser local storage has size limits. Export and backup important pipelines regularly to avoid data loss.
+:::
