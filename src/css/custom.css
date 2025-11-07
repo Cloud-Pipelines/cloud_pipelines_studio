@@ -1,0 +1,447 @@
+/* Shop Docs Theme Styles */
+
+/* Shop Brand Colors */
+:root {
+  /* Light mode colors */
+  --shop-brand-primary: #5433eb;
+  --shop-brand-background: #ffffff;
+
+  /* Primary color shades for light mode */
+  --ifm-color-primary: #5433eb;
+  --ifm-color-primary-dark: #4227d9;
+  --ifm-color-primary-darker: #3d24ce;
+  --ifm-color-primary-darkest: #321da9;
+  --ifm-color-primary-light: #6645fd;
+  --ifm-color-primary-lighter: #7151fd;
+  --ifm-color-primary-lightest: #8e71fe;
+
+  /* Core colors */
+  --ifm-background-color: #ffffff;
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "San Francisco",
+    "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+  --ifm-code-font-size: 95%;
+  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-navbar-link-color: var(--ifm-color-black);
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary);
+
+  /* Footer styling */
+  --ifm-footer-background-color: #f5f6f7;
+  --ifm-footer-color: var(--ifm-color-emphasis-700);
+  --ifm-footer-link-color: var(--ifm-color-emphasis-600);
+  --ifm-footer-link-hover-color: var(--ifm-color-primary);
+  --ifm-footer-title-color: var(--ifm-color-emphasis-900);
+
+  /* DocSearch theming (if using Algolia DocSearch) */
+  --docsearch-primary-color: var(--ifm-color-primary);
+  --docsearch-highlight-color: var(--ifm-color-primary);
+  --docsearch-muted-color: var(--ifm-color-secondary);
+  --docsearch-searchbox-background: var(--ifm-color-emphasis-200);
+  --docsearch-searchbox-focus-background: var(--ifm-color-emphasis-100);
+  --docsearch-text-color: var(--ifm-font-color-base);
+}
+
+/* Dark mode colors */
+[data-theme="dark"] {
+  /* Dark mode brand colors */
+  --shop-brand-primary: #9c83f8;
+  --shop-brand-background: #121212;
+
+  /* Primary color shades for dark mode */
+  --ifm-color-primary: #9c83f8;
+  --ifm-color-primary-dark: #8165f6;
+  --ifm-color-primary-darker: #7456f5;
+  --ifm-color-primary-darkest: #5129f2;
+  --ifm-color-primary-light: #b7a1fa;
+  --ifm-color-primary-lighter: #c4b0fb;
+  --ifm-color-primary-lightest: #e0d7fd;
+
+  /* Core dark mode colors */
+  --ifm-background-color: #121212;
+  --ifm-background-surface-color: #1a1a1a;
+  --ifm-navbar-background-color: #1a1a1a;
+  --ifm-navbar-link-color: var(--ifm-color-white);
+  --ifm-navbar-link-hover-color: var(--ifm-color-primary);
+  --ifm-menu-color-active: var(--ifm-color-primary);
+  --ifm-color-content: #e3e3e3;
+  --ifm-color-content-secondary: #b8b8b8;
+  --ifm-hover-overlay: rgba(255, 255, 255, 0.08);
+  --ifm-toc-border-color: #2a2a2a;
+  --ifm-table-stripe-background: rgba(255, 255, 255, 0.03);
+
+  /* Footer dark mode */
+  --ifm-footer-background-color: #161616;
+  --ifm-footer-color: #e3e3e3;
+  --ifm-footer-link-color: var(--ifm-color-primary);
+  --ifm-footer-link-hover-color: var(--ifm-color-primary-lighter);
+  --ifm-footer-title-color: #ffffff;
+
+  /* DocSearch theming (if using Algolia DocSearch) */
+  --docsearch-modal-background: var(--ifm-background-surface-color);
+  --docsearch-searchbox-background: rgba(255, 255, 255, 0.1);
+  --docsearch-searchbox-focus-background: rgba(255, 255, 255, 0.15);
+  --docsearch-footer-background: var(--ifm-background-surface-color);
+  --docsearch-key-gradient: linear-gradient(-225deg, #444950, #1c1e21);
+  --docsearch-key-shadow: inset 0 -2px 0 0 #282d35, inset 0 0 1px 1px #51577d,
+    0 1px 2px 1px rgba(3, 4, 9, 0.3);
+}
+
+/* Shop theme wrapper */
+.shop-theme {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Additional Shop theme customizations */
+
+/* Navbar styling */
+.navbar {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .navbar {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Navbar logo styling */
+.navbar__logo {
+  height: 2rem;
+}
+
+.navbar__title {
+  font-weight: 700;
+  color: var(--shop-brand-primary);
+}
+
+[data-theme="dark"] .navbar__title {
+  color: var(--shop-brand-primary);
+}
+
+/* Enhanced link transitions */
+a {
+  transition: color 0.2s ease-in-out;
+}
+
+/* Code block enhancements */
+[data-theme="dark"] .docusaurus-highlight-code-line {
+  background-color: rgba(156, 131, 248, 0.15);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* Button styling */
+.button--primary {
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.button--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(84, 51, 235, 0.25);
+}
+
+[data-theme="dark"] .button--primary:hover {
+  box-shadow: 0 4px 12px rgba(156, 131, 248, 0.25);
+}
+
+.button--secondary {
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.button--secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .button--secondary:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Card hover effects */
+.card {
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Hero section styling */
+.hero {
+  background: linear-gradient(
+    135deg,
+    var(--shop-brand-primary) 0%,
+    var(--ifm-color-primary-darker) 100%
+  );
+  color: white;
+}
+
+[data-theme="dark"] .hero {
+  background: linear-gradient(
+    135deg,
+    var(--shop-brand-primary) 0%,
+    var(--ifm-color-primary-darker) 100%
+  );
+}
+
+.hero__title {
+  color: white;
+}
+
+.hero__subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Search bar styling */
+.navbar__search-input {
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-font-color-base);
+}
+
+.navbar__search-input::placeholder {
+  color: var(--ifm-color-emphasis-600);
+}
+
+.navbar__search-input:focus {
+  background-color: var(--ifm-background-color);
+  border-color: var(--ifm-color-primary);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(84, 51, 235, 0.1);
+}
+
+[data-theme="dark"] .navbar__search-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .navbar__search-input:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(156, 131, 248, 0.2);
+}
+
+/* Sidebar enhancements */
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--ifm-toc-border-color);
+}
+
+[data-theme="dark"] .theme-doc-sidebar-container {
+  background: var(--ifm-background-color);
+  border-right-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Existing styles - keeping sidebar font size adjustments */
+.theme-doc-sidebar-item-link-level-2,
+.theme-doc-sidebar-item-link-level-3,
+.theme-doc-sidebar-item-link-level-4,
+.theme-doc-sidebar-item-category-level-2,
+.theme-doc-sidebar-item-category-level-3,
+.theme-doc-sidebar-item-category-level-4 {
+  font-size: 0.85rem;
+}
+
+.menu__list .menu__list {
+  padding-left: 1.5rem;
+}
+
+.menu__list .menu__list .menu__list {
+  padding-left: 1.28rem;
+}
+
+.menu__link--sublist-caret:after,
+.menu__caret:before {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+}
+
+.navbar__item,
+.dropdown__link {
+  font-size: 0.85rem;
+}
+
+/* Form styles */
+.form {
+  margin-bottom: 14px;
+}
+
+.form__label {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.form__input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.form__input {
+  min-width: 300px;
+  min-height: 10px;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: 1px solid gray;
+}
+
+.form__input--error {
+  border: 1px solid #f92d2d;
+}
+
+.form__description {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+  color: #a0a0a0;
+}
+
+.form__error {
+  margin-left: 12px;
+  color: #f92d2d;
+}
+
+table ul {
+  padding-left: 16px;
+  margin-bottom: 0;
+}
+
+/* Shop-specific admonition colors */
+.theme-admonition {
+  border-left: 6px solid var(--ifm-color-primary);
+}
+
+.theme-admonition-note {
+  border-left-color: var(--ifm-color-primary);
+}
+
+.theme-admonition-tip {
+  border-left-color: #00d084;
+}
+
+.theme-admonition-info {
+  border-left-color: #54c7ec;
+}
+
+.theme-admonition-warning {
+  border-left-color: #ffba00;
+}
+
+.theme-admonition-danger {
+  border-left-color: #fa3e3e;
+}
+
+/* Smooth transitions for theme switching */
+html[data-theme="light"],
+html[data-theme="dark"] {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* TOC (Table of Contents) styling */
+.table-of-contents {
+  border-left: 2px solid var(--ifm-toc-border-color);
+}
+
+.table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  border-left-color: var(--ifm-color-primary);
+}
+
+/* Pagination styling */
+.pagination-nav__link {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  transition: all 0.2s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.pagination-nav__link--next .pagination-nav__sublabel::after {
+  content: " →";
+}
+
+.pagination-nav__link--prev .pagination-nav__sublabel::before {
+  content: "← ";
+}
+
+/* Shop footer brand */
+.shop-footer-brand {
+  background-color: #f5f6f7;
+  color: var(--ifm-color-emphasis-700);
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+[data-theme="dark"] .shop-footer-brand {
+  background-color: #0f0f0f;
+  border-top: 1px solid rgba(156, 131, 248, 0.15);
+  color: var(--ifm-color-emphasis-500);
+}
+
+.shop-footer-brand__content {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+/* Footer link color fix for light mode */
+.footer {
+  --ifm-footer-link-color: var(--ifm-color-emphasis-700);
+  --ifm-footer-link-hover-color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] .footer {
+  --ifm-footer-link-color: var(--shop-brand-primary);
+  --ifm-footer-link-hover-color: var(--ifm-color-primary-lighter);
+}
+
+/* Shop logo wrapper */
+.shop-logo-wrapper {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+}
+
+.shop-logo-wrapper svg {
+  height: 100%;
+  width: auto;
+  fill: var(--shop-brand-primary);
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.navbar__brand:hover .shop-logo-wrapper svg {
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] .shop-logo-wrapper svg {
+  fill: var(--shop-brand-primary);
+}
+
+/* Navbar title spacing when logo is present */
+.navbar__brand .navbar__title {
+  margin-left: 0.5rem;
+}
+
+/* Dark mode section transitions */
+[data-theme="dark"] .main-wrapper {
+  background: linear-gradient(
+    to bottom,
+    var(--ifm-background-color) 0%,
+    #141414 100%
+  );
+}
+
+[data-theme="dark"] .footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}

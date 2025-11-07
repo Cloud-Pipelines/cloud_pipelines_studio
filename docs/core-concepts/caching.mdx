@@ -1,0 +1,176 @@
+---
+title: Understanding Caching in TangleML
+sidebar_label: Caching
+description: Learn how TangleML's sophisticated caching system saves time and resources
+---
+
+# Understanding Caching in TangleML
+
+TangleML's caching system is one of its most powerful features, designed to dramatically reduce compute time and accelerate your ML pipeline iterations. Unlike traditional pipeline systems, TangleML implements sophisticated caching strategies that can save hours or even days of computation time.
+
+## Why Caching Matters
+
+Imagine you have a pipeline that runs for two days, involving data preprocessing, model training, and evaluation. Without caching:
+
+- Every pipeline run would start from scratch
+- Small changes would require complete re-execution
+- Parallel experiments would duplicate work unnecessarily
+
+With TangleML's caching:
+
+- Previous computations are automatically reused
+- Only changed components are re-executed
+- Multiple pipeline variants share common computations
+
+:::tip
+A pipeline that took a full day to run initially might complete in minutes on subsequent runs if most components can use cached results!
+:::
+
+## How Caching Works
+
+### The Cache Key
+
+TangleML generates a unique cache key for each task execution based on:
+
+1. **Container specification** - The exact container image, commands, and environment
+2. **Input data hashes** - Cryptographic hashes of all input artifacts
+
+When a task is about to execute, TangleML checks if an identical task has been run before by comparing cache keys.
+
+### Content-Based vs. Lineage-Based Hashing
+
+TangleML uses **content-based hashing**, which is superior to the lineage-based approach used by most other systems:
+
+| Feature                          | Content-Based (TangleML)                                         | Lineage-Based (Others)            |
+| -------------------------------- | ---------------------------------------------------------------- | --------------------------------- |
+| **Component upgrades**           | Downstream uses cache if outputs are identical                   | Must re-execute all downstream    |
+| **Non-deterministic components** | Downstream uses cache when output doesn't change                 | Always re-executes downstream     |
+| **Constant value replacement**   | Can swap hardcoded values with components without breaking cache | Cache breaks when lineage changes |
+
+:::tip
+Content-based hashing means that if a component produces the same output (same hash), all downstream components can still use their cached results, even if the upstream component was re-executed!
+:::
+
+### Reusing Running Executions
+
+One of TangleML's unique features is the ability to reuse **still-running executions**. This is crucial for parallel pipeline submissions:
+
+```
+Pipeline 1: [Data Processing] → [Training A] → [Evaluation]
+Pipeline 2: [Data Processing] → [Training B] → [Evaluation]
+Pipeline 3: [Data Processing] → [Training C] → [Evaluation]
+```
+
+When submitted simultaneously:
+
+- **Other systems**: Launch 3 separate data processing tasks
+- **TangleML**: All pipelines share the same data processing execution
+
+## Cache Configuration
+
+### Controlling Cache Behavior
+
+You can control caching behavior at the component task level:
+
+| Setting          | Description                       | Example Use Case                          |
+| ---------------- | --------------------------------- | ----------------------------------------- |
+| **Default**      | Cache enabled, no staleness limit | Most components                           |
+| **Disabled**     | `max_cache_staleness: "P0D"`      | Components reading volatile external data |
+| **Time-limited** | `max_cache_staleness: "P7D"`      | Data that becomes stale after a week      |
+
+:::warning
+Components should be **pure functions** - given the same inputs, they should produce the same outputs. If your component reads from volatile sources, consider adding date parameters or disabling caching.
+:::
+
+```yaml
+...
+implementation:
+  graph:
+    tasks:
+      ...
+      Fill all missing values using Pandas on CSV data:
+        executionOptions:
+          cachingStrategy:
+            maxCacheStaleness: P0D
+```
+
+### Cache Staleness Format
+
+Cache staleness uses RFC3339 duration format:
+
+- `P30D` - 30 days
+- `P7D` - 7 days
+- `PT1H` - 1 hour
+- `P0D` - Disable caching
+
+## Data Retention and Purging
+
+### Artifact Lifecycle
+
+| Stage       | Duration  | What Remains                             |
+| ----------- | --------- | ---------------------------------------- |
+| **Active**  | 0-30 days | Full artifact data and metadata          |
+| **Purged**  | >30 days  | Metadata only (size, hash, small values) |
+| **Deleted** | Never     | Execution records persist indefinitely   |
+
+:::warning
+Artifacts are automatically purged after 30 days due to data retention policies. URLs to purged artifacts will return 404 errors, but metadata remains visible.
+:::
+
+### What Survives Purging
+
+After purging, you can still see:
+
+- File sizes
+- Content hashes
+- Directory structure
+- Small values (metrics, parameters)
+- Execution status and timing
+
+## Cache Breaking Strategies
+
+When you need fresh data despite caching:
+
+### 1. Date Parameters
+
+For database queries, include cutoff dates:
+
+```python
+@component
+def fetch_user_data(end_date: str) -> Dataset:
+    # Changing end_date naturally breaks cache
+    ...
+```
+
+### 2. Cache Breaker Input
+
+For volatile sources without date control:
+
+```python
+@component
+def search_web(query: str, cache_breaker: str = "") -> Results:
+    # Pass timestamp or random value to cache_breaker
+    ...
+```
+
+### 3. Disable Caching
+
+For components that should never cache:
+
+```yaml
+caching_strategy:
+  max_cache_staleness: "P0D" # Disables caching
+```
+
+<img src={require("./assets/Caching_DisableCache.png").default} alt="Disable Caching" />
+
+## Summary
+
+TangleML's caching system provides:
+
+- **Automatic optimization** - No manual cache management needed
+- **Intelligent reuse** - Content-based hashing and running execution sharing
+- **Flexible control** - Configure staleness and breaking strategies
+- **Performance gains** - Dramatic reduction in execution time
+
+By understanding and leveraging these caching capabilities, you can iterate faster, experiment more freely, and make the most of your computational resources.
