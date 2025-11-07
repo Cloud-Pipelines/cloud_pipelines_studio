@@ -2,8 +2,10 @@
 
 Tangle is a service and a Web app that allows the users to build and run Machine Learning pipelines using drag and drop without having to set up development environment.
 
-[![image](https://github.com/user-attachments/assets/0ce7ccc0-dad7-4f6a-8677-f2adcd83f558)](https://cloud-pipelines.net/pipeline-studio-app)
-
+![image](https://github.com/user-attachments/assets/0ce7ccc0-dad7-4f6a-8677-f2adcd83f558)
+<!--
+[![image](https://github.com/user-attachments/assets/0ce7ccc0-dad7-4f6a-8677-f2adcd83f558)](https://tangleml-tangle.hf.space)
+-->
 <!--
 ## Video
 
@@ -12,15 +14,17 @@ Please take a look at the short video demonstrating the first version of the vis
 [Cloud Pipelines Editor - Build machine learning pipelines without writing code](https://www.youtube.com/watch?v=7g22nupCDes)
 -->
 
+<!--
 ## Demo
 
 [Demo](https://cloud-pipelines.net/pipeline-studio-app)
 
-The experimental new version of the Tangle app is now available at <https://cloud-pipelines.net/pipeline-studio-app> . No registration is required to experiment with building pipelines. To be able to execute the pipelines, follow the [installation instructions](#installation).
+The experimental new version of the Tangle app is now available at <https://tangleml.com/tangle-ui> . No registration is required to experiment with building pipelines. To be able to execute the pipelines, follow the [installation instructions](#installation).
 
-Please check it out and report any bugs you find using [GitHub Issues](https://github.com/Cloud-Pipelines/tangle/issues).
+Please check it out and report any bugs you find using [GitHub Issues](https://github.com/TangleML/tangle/issues).
 
 The app is under active development, so expect some breakages as we work on the app and do not rely on the app for production.
+-->
 
 ## Installation
 
@@ -30,8 +34,8 @@ The app is under active development, so expect some breakages as we work on the 
 2. Download the app code (needs to be done once):
 
 ```shell
-git clone https://github.com/Cloud-Pipelines/backend.git tangle/backend --branch stable
-git clone https://github.com/Cloud-Pipelines/pipeline-studio-app.git tangle/frontend_build --branch gh_pages_stable --single-branch --depth 1
+git clone https://github.com/TangleML/tangle.git tangle/backend --branch stable
+git clone https://github.com/TangleML/tangle-ui.git tangle/frontend_build --branch gh_pages_stable --single-branch --depth 1
 ```
 3. Start the app:
 
@@ -57,8 +61,8 @@ Click the "New Pipeline" button at the top to start building a new pipeline.
 2. Download the app code (needs to be done once):
 
 ```shell
-git clone https://github.com/Cloud-Pipelines/backend.git tangle/backend --branch stable
-git clone https://github.com/Cloud-Pipelines/pipeline-studio-app.git tangle/frontend_build --branch gh_pages_stable --single-branch --depth 1
+git clone https://github.com/TangleML/tangle.git tangle/backend --branch stable
+git clone https://github.com/TangleML/tangle-ui.git tangle/frontend_build --branch gh_pages_stable --single-branch --depth 1
 ```
 
 3. Start the app:
