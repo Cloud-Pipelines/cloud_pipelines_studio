@@ -23,8 +23,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "TangleML", // Usually your GitHub org/user name.
+  projectName: "tangle", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -88,7 +88,7 @@ const config: Config = {
           'docs/component-development',
           'docs/reference',
           'docs/user-guide',
-          
+
         ],
         useAllContextsWithNoSearchContext: true,
       },
@@ -135,7 +135,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Shopify. Built with Docusaurus.`,
+      // copyright: `Copyright © ${new Date().getFullYear()} The Tangle authors.`,
     },
     prism: {
       theme: prismThemes.github,
