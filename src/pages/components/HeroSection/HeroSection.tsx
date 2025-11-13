@@ -162,7 +162,7 @@ const HeroSection: React.FC = () => {
                     />
                   </svg>
                 </button>
-                <button className={styles.btnSecondary}>Watch Demo</button>
+                
               </div>
             </div>
 
