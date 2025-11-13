@@ -12,9 +12,9 @@ Tangle is a service and a Web app that allows the users to build and run Machine
 
 ## Demo
 
-[Demo](https://tangleml.github.io/tangle-ui/#/quick-start)
+[Demo](https://tangleml-tangle.hf.space/#/quick-start)
 
-The experimental new version of the Tangle app is now available at [https://tangleml.github.io/tangle-ui/#/quick-start](https://tangleml.github.io/tangle-ui/#/quick-start). No registration is required to experiment with building pipelines. To be able to execute the pipelines, follow the [installation instructions](#installation).
+The experimental new version of the Tangle app is now available at [https://tangleml-tangle.hf.space/#/quick-start](https://tangleml-tangle.hf.space/#/quick-start). No registration is required to experiment with building pipelines. To be able to execute the pipelines, follow the [installation instructions](#installation).
 
 Please check it out and report any bugs you find using [GitHub Issues](https://github.com/tangleml/tangle/issues).
 
